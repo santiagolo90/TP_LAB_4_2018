@@ -1,0 +1,106 @@
+
+<!-- <body class="fondoLogin" fixed>
+  <div class ="container">
+    <div class="wrapper">
+      <form (ngSubmit)="enviarLogin()" method="post" name="Login_Form" class="form-signin">       
+          <h3 class="form-signin-heading">Bienvenido</h3>
+          <hr class="colorgraph"><br>
+          
+          <input type="email" placeholder="Ingresa email" [(ngModel)]="email" class="form-control"  name="email" id="email" required="" autofocus="" />
+          <input type="password" placeholder="Ingresa clave" [(ngModel)]="clave" class="form-control"  name="clave" id="clave" required="" />  		  
+         
+          <div>
+              <button type="submit" class="btn btn-lg btn-primary btn-block"  >Iniciar sesión</button>
+          </div>  	
+          <a href="#" class="text-center new-account" onclick="document.getElementById('id01').style.display='block'">Regístrate </a>
+      </form>	
+      	
+    </div>
+  </div>
+  <br>
+  <h3>{{token}}</h3>
+
+</body> -->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <form (ngSubmit)="enviarLogin()" method="post" name="Login_Form" class="form-signin"> 
+        <div class="imgcontainer">
+          <img src="./assets/imagenes/login.png" alt="Avatar" class="avatar" max-width="104" >
+        </div>
+            <div class="form-group">
+                <label for="email"><b>email</b></label>
+              <input type="email" placeholder="Ingresa email" [(ngModel)]="email" class="form-control"  name="email" id="email" required="" autofocus="" />
+              
+            </div>
+            <div class="form-group">
+                <label for="clave"><b>clave</b></label>
+                <input type="password" placeholder="Ingresa clave" [(ngModel)]="clave" class="form-control"  name="clave" id="clave" required="" />  	
+          </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-success btn-block"  >Iniciar sesión</button>
+            <!-- <button (click)="iniciarSesion()" class="btn btn-primary btn-success btn-block">Entrar</button> -->
+            <h4 *ngIf="spiner == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
+        </div>
+        <!-- <div class="form-group">
+            <button type="button" style="color:#EFDA54; text-decoration: none" class="btn btn-link btn-lg" (click)="autoCompletar()" >Ingresa como invitado</button>
+          </div> -->
+
+        <div class="form-group">
+          <!-- <button type="button" class="aceptbtn btn btn-info btn-lg" routerLink="/Registro" >Registrarse</button> -->
+          <!-- <button type="button" class="aceptbtn btn btn-info btn-lg" onclick="document.getElementById('id01').style.display='block'">Registrarse</button> -->
+          <button style="color: whitesmoke" type="button" class="btn btn-lg btn-link btn-block" onclick="document.getElementById('id01').style.display='block'"  >Registrarse</button>
+          <!-- <button type="button" class="cancelbtn btn btn-danger btn-lg" routerLink="/Principal">Cancelar</button> -->
+          <!-- <span class="psw">Te olvidaste <a href="#">la clave?</a></span> -->
+          <section id="msjLogin"></section>
+        </div>
+       
+      </form>
+  </div> 
+
+</div>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <form class="modal-content animate">
+      <div class="container">
+        
+        <div class="form-group">
+              <label for="nombre"><b>nombre</b></label>
+              <input type="text" placeholder="Ingrese nombre" class="form-control"  [(ngModel)]="nombreRegistro" name="nombreRegistro">
+        </div>
+        <div class="form-group">
+            <label for="tipo"><b>tipo</b></label>
+            <select class="form-control" [(ngModel)]="tipoRegistro" name="tipoRegistro" >
+                <option value="admin">admin</option>
+                <option value="encargado">encargado</option>
+                <option value="cliente">cliente</option>
+                <option value="chofer">chofer</option>
+              </select>
+            <!-- <input type="text" placeholder="Ingrese tipo" class="form-control"  [(ngModel)]="tipoRegistro" name="tipoRegistro"> -->
+      </div>
+        <div class="form-group">
+            <label for="usuario"><b>email</b></label>
+            <input type="email" placeholder="Ingrese email" class="form-control"  [(ngModel)]="usuarioRegistro" name="usuarioRegistro">
+        </div>
+        <div class="form-group">
+            <label for="pass"><b>Clave</b></label>
+            <input type="password" placeholder="Clave" class="form-control" [(ngModel)]="claveRegistro" name="claveRegistro">
+        </div>
+
+        <div class="form-group">
+            <label ><b>Repita la clave</b></label>
+            <input type="password" placeholder="Repita la clave" class="form-control" [(ngModel)]="claveRegistro2" name="claveRegistro2">
+        </div>
+        <div class="clearfix">
+            <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
+          <button type="button" class="btn btn-info btn-lg" (click)="Registrar()" >Registrarme</button>
+        </div>
+        <section id="msjRegistro"></section>
+      </div>
+    </form>
+  </div>
+
+    
