@@ -7,13 +7,15 @@ import { ErrorComponent } from '../componentes/error/error.component'
 import { PrincipalComponent } from '../componentes/principal/principal.component'
 import { RegistroComponent } from '../componentes/registro/registro.component'
 import { VerificarJwtService } from '../seguridad/verificar-jwt.service'
+import { ActivoJwtService } from '../seguridad/activo-jwt.service'
 
 //agregue esto
 const MiRuteo = [
   {path: '' , component: LoginComponent},
   {path: 'principal' , component: PrincipalComponent, canActivate: [VerificarJwtService]},  
   {path: 'Principal' , component: PrincipalComponent,canActivate: [VerificarJwtService]},
-  {path: 'registro' , component: RegistroComponent},    
+  {path: 'registro' , component: RegistroComponent,canActivate: [VerificarJwtService]},  
+  {path: 'Registro' , component: RegistroComponent,canActivate: [VerificarJwtService]},     
   // { path: 'alumno' , component: AlumnoComponent ,
   // children:
   //      [{path: 'datos' , component: DatosComponent},

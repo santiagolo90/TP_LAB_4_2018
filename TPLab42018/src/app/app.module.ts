@@ -9,11 +9,15 @@ import { RuteoModule } from './ruteo/ruteo.module';
 //Componetes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { AuthService } from './servicios/auth.service'
-import { VerificarJwtService } from './seguridad/verificar-jwt.service'
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './componentes/error/error.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';//agregue esto
+import { HeaderComponent } from './componentes/header/header.component';
+
+//Servicios
+import { AuthService } from './servicios/auth.service'
+import { GlobalService } from './servicios/global.service'
+import { VerificarJwtService } from './seguridad/verificar-jwt.service'
 
 //primeng
 import {MenubarModule} from 'primeng/menubar';
@@ -24,13 +28,15 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ErrorComponent,
     PrincipalComponent,
-    RegistroComponent
+    RegistroComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -44,19 +50,19 @@ import { NgSelectModule } from '@ng-select/ng-select';
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('token');
+          return localStorage.getItem('Token');
         },
         whitelistedDomains : [
           'localhost:8080'
         ],
-        headerName : 'token',
+        headerName : 'Token',
         authScheme : ''
       }
     }),
     MenubarModule,
     
   ],
-  providers: [AuthService,VerificarJwtService],
+  providers: [GlobalService,AuthService,VerificarJwtService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -59,7 +59,7 @@ input[type="password"] {
     margin-top: 10px;
 } */
 .row{
-  background: whitesmoke;
+  background: white
 }
 form {
     
@@ -164,8 +164,8 @@ span.psw {
   color:whitesmoke;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  /* width: 98%;  */
-  width: 47%;
+  width: 98%;
+
 }
 
 /* The Close Button (x) */

@@ -24,7 +24,7 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 <div class="row">
-  <div class="col-xs-6 col-xs-offset-3">
+  <div class="col-md-6 col-md-offset-3">
     <form (ngSubmit)="enviarLogin()" method="post" name="Login_Form" class="form-signin"> 
         <div class="imgcontainer">
           <img src="./assets/imagenes/login.png" alt="Avatar" class="avatar" max-width="104" >
@@ -63,40 +63,39 @@
 
 <div id="id01" class="modal">
     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-    <form class="modal-content animate">
+    <form class="modal-content animate" [formGroup]="registroForm">
       <div class="container">
         
         <div class="form-group">
               <label for="nombre"><b>nombre</b></label>
-              <input type="text" placeholder="Ingrese nombre" class="form-control"  [(ngModel)]="nombreRegistro" name="nombreRegistro">
+              <input type="text" [formControl]="formNombre" placeholder="Ingrese nombre" class="form-control"  name="nombreRegistro" required>
         </div>
-        <div class="form-group">
-            <label for="tipo"><b>tipo</b></label>
-            <select class="form-control" [(ngModel)]="tipoRegistro" name="tipoRegistro" >
-                <option value="admin">admin</option>
-                <option value="encargado">encargado</option>
-                <option value="cliente">cliente</option>
-                <option value="chofer">chofer</option>
-              </select>
-            <!-- <input type="text" placeholder="Ingrese tipo" class="form-control"  [(ngModel)]="tipoRegistro" name="tipoRegistro"> -->
-      </div>
         <div class="form-group">
             <label for="usuario"><b>email</b></label>
-            <input type="email" placeholder="Ingrese email" class="form-control"  [(ngModel)]="usuarioRegistro" name="usuarioRegistro">
+            <input type="email" [formControl]="formEmail" placeholder="Ingrese email" class="form-control"  name="usuarioRegistro" required>
         </div>
         <div class="form-group">
-            <label for="pass"><b>Clave</b></label>
-            <input type="password" placeholder="Clave" class="form-control" [(ngModel)]="claveRegistro" name="claveRegistro">
+            <label for="clave"><b>Clave</b></label>
+            <input type="password" [formControl]="formClave" placeholder="Clave" class="form-control"  name="claveRegistro" required>
         </div>
 
         <div class="form-group">
             <label ><b>Repita la clave</b></label>
-            <input type="password" placeholder="Repita la clave" class="form-control" [(ngModel)]="claveRegistro2" name="claveRegistro2">
+            <input type="password" [formControl]="formClave2" placeholder="Repita la clave" class="form-control" name="claveRegistro2" required >
         </div>
+        <!-- <div class="form-group">
+          <label for="tipo"><b>tipo</b></label>
+          <select class="form-control" [(ngModel)]="tipoRegistro" name="tipoRegistro" >
+              <option value="admin">admin</option>
+              <option value="encargado">encargado</option>
+              <option value="cliente">cliente</option>
+              <option value="chofer">chofer</option>
+            </select>
+          </div> -->
         <div class="clearfix">
             <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
-          <button type="button" class="btn btn-info btn-lg" (click)="Registrar()" >Registrarme</button>
+          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid" (click)="Registrar()" >Registrarme</button>
         </div>
         <section id="msjRegistro"></section>
       </div>

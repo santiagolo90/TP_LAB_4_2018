@@ -1,5 +1,7 @@
+<app-header (enviarDato)="Enviar($event)"  ></app-header>
 <div class="container">
-  <p>
+  <p *ngIf="mostrarIF == 'si'">
     Sos administrador
   </p>
+  <app-registro></app-registro>
 </div>
