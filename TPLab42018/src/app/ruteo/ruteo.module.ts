@@ -12,8 +12,8 @@ import { ActivoJwtService } from '../seguridad/activo-jwt.service'
 //agregue esto
 const MiRuteo = [
   {path: '' , component: LoginComponent},
-  {path: 'principal' , component: PrincipalComponent, canActivate: [VerificarJwtService]},  
-  {path: 'Principal' , component: PrincipalComponent,canActivate: [VerificarJwtService]},
+  {path: 'principal' , component: PrincipalComponent},  
+  {path: 'Principal' , component: PrincipalComponent},
   {path: 'registro' , component: RegistroComponent,canActivate: [VerificarJwtService]},  
   {path: 'Registro' , component: RegistroComponent,canActivate: [VerificarJwtService]},     
   // { path: 'alumno' , component: AlumnoComponent ,

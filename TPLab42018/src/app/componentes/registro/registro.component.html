@@ -1,3 +1,47 @@
-<p>
-  registro works!
-</p>
+<app-header (enviarDato)="Enviar($event)"  ></app-header>
+
+<body>
+  <form [formGroup]="registroForm" class="modal-content animate" (ngSubmit)="Registrar()" >
+    <div class="container">
+      <br>
+      <div class="form-group">
+        <label for="nombre"><b>nombre</b></label>
+        <input type="text" [formControl]="formNombre" placeholder="Ingrese nombre" class="form-control"  name="nombreRegistro" required>
+      </div>
+      <div class="form-group">
+        <label for="usuario"><b>email</b></label>
+        <input type="email" [formControl]="formEmail" placeholder="Ingrese email" class="form-control"  name="usuarioRegistro" required>
+      </div>
+      <div class="form-group">
+        <label for="clave"><b>Clave</b></label>
+        <input type="password" [formControl]="formClave" placeholder="Clave" class="form-control"  name="claveRegistro" required>
+      </div>
+
+      <div class="form-group">
+        <label ><b>Repita la clave</b></label>
+        <input type="password" [formControl]="formClave2" placeholder="Repita la clave" class="form-control" name="claveRegistro2" required >
+      </div>
+      <div class="form-group">
+        <label for="tipo"><b>tipo</b></label>
+        <select class="form-control" [formControl]="formTipo"  name="tipoRegistro" id="tipoRegistro" required>
+          <option value="admin">admin</option>
+          <option value="encargado">encargado</option>
+          <option value="cliente">cliente</option>
+          <option value="chofer">chofer</option>
+        </select>
+      </div>
+      <div class="form-group">
+          <label for="estado"><b>estado</b></label>
+          <select class="form-control" [formControl]="formEstado"  name="EstadoRegistro" id="EstadoRegistro" required>
+            <option value="activo">activo</option>
+            <option value="suspendido">suspendido</option>
+          </select>
+        </div>
+        <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
+      <div>
+        <button type="submit" class="btn btn-success btn-lg" [disabled]="!registroForm.valid">Registrarme</button>
+      </div>
+      <br>
+    </div>
+  </form>
+</body>

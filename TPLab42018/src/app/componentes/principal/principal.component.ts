@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthService } from '../../servicios/auth.service'
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+
 
 @Component({
   selector: 'app-principal',
@@ -10,10 +12,21 @@ import {MenuItem} from 'primeng/api';
 export class PrincipalComponent implements OnInit {
   @Input() dato: any[];
   mostrarIF:string;
+  public listadoDeUsuarios: Array<any>;
+  public listadoDeClientes: Array<any>;
+  mostrarClientes:boolean = true;
+  mensajeClientes:string;
+  mostrarEmpleados:boolean = true;
+  mensajeEmpleado:string;
 
-  constructor() { }
+  constructor(public miHttp: AuthService,
+    public http: Http,
+    private router: Router) {
+  }
 
   ngOnInit() {
+    this.listar();
+    this.listarClientes();
   }
   Enviar(dato:any){
     console.log("Estoy en enviar: ",dato);
@@ -24,5 +37,36 @@ export class PrincipalComponent implements OnInit {
    this.mostrarIF = dato;
    console.log("this.mostrarIF: ",this.mostrarIF)
   }
+
+
+  public listar():Promise<Array<any>> {
+    return   this.miHttp.pedidoGet("empleado/empleados/").then( data => {
+         this.mostrarEmpleados = true;
+         console.log( "volvio de get / trae empleados: " );
+         console.log(  data );
+         this.listadoDeUsuarios=data;
+       })
+       .catch( err => {
+        this.mensajeEmpleado = err.error;
+        this.mostrarEmpleados = false;
+         console.log( err );
+         return null;
+       });
+ }
+ listarClientes(){
+  return   this.miHttp.pedidoGet("empleado/clientes/").then( data => {
+    this.mostrarClientes = true;
+    console.log( "volvio de get / trae clientes: " );
+    console.log(  data );
+    this.listadoDeClientes=data;
+  })
+  .catch( err => {
+    this.mensajeClientes = err.error;
+    this.mostrarClientes = false;
+    console.log( err );
+    return null;
+  });
+
+ }
 
 }

@@ -18,14 +18,20 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { AuthService } from './servicios/auth.service'
 import { GlobalService } from './servicios/global.service'
 import { VerificarJwtService } from './seguridad/verificar-jwt.service'
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 //primeng
-import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
-import { RegistroComponent } from './componentes/registro/registro.component';
+//import {MenubarModule} from 'primeng/menubar';
+//import {MenuItem} from 'primeng/api';
+
 
 //NG-select
 import { NgSelectModule } from '@ng-select/ng-select';
+//Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ToastrModule } from 'ngx-toastr';
+import { AdminPipe } from './pipe/admin.pipe';
 
 
 
@@ -36,7 +42,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ErrorComponent,
     PrincipalComponent,
     RegistroComponent,
-    HeaderComponent
+    HeaderComponent,
+    AdminPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +66,17 @@ import { NgSelectModule } from '@ng-select/ng-select';
         authScheme : ''
       }
     }),
-    MenubarModule,
+    //MenubarModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      closeButton: true,
+      progressBar :true,
+      progressAnimation:'decreasing',
+      //positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), // ToastrModule added
+    
     
   ],
   providers: [GlobalService,AuthService,VerificarJwtService],

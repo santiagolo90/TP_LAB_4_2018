@@ -9,24 +9,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Humberto</a>
+      <a class="navbar-brand" routerLink="/principal" >Humberto</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a (click)="mostar()" role="button">Alta empleados</a></li>
-        <li><a (click)="ocultar()" role="button">Example</a></li>
+        <!-- <li><a (click)="mostar()" role="button">Alta empleados</a></li> -->
+        <li><a routerLink="/registro" role="button">Alta empleados</a></li>
+        <li><a (click)="ocultar()" role="button">Proximamente</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown Example<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proximamente menu<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Link One</a></li>
-            <li><a href="#">Link Two</a></li>
-            <li><a href="#">Link Three</a></li>
-            <li><a href="#">Link Four</a></li>
+            <li><a role="button">Link uno</a></li>
+            <li><a role="button">Link dos</a></li>
+            <li><a role="button">Link tres</a></li>
+            <li><a role="button">Link cuatro</a></li>
           </ul>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+          <li><a role="button" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
       </ul>
     </div>
   </div>

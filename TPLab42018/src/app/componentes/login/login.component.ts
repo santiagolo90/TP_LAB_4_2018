@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@a
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { ToastrService } from 'ngx-toastr';
 
 //import * as $ from ‘jquery’;
 // declare var jQuery:any;
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
   public reactiveForm: FormGroup;
 
   constructor(public miHttp: AuthService,
-    public builder: FormBuilder,
+    private toastr: ToastrService,
     public http: Http,
     private router: Router,
     private formBuilder : FormBuilder) {
@@ -85,15 +86,18 @@ export class LoginComponent implements OnInit {
       console.log("res2:" + res.msj);
       //this.router.navigate(['/']);
       this.spiner = false;
-      alert(res.msj);
+      //alert(res.msj);
       this.router.navigate(['/principal']);
+      this.mostarToast(res.msj,"","success")
 
     }).catch(err => {
       this.spiner = false;
       console.log("error capturado: " + err.error);
-      alert(err.error);
+      //alert(err.error);
+      this.mostarToast("Error",err.error,"error")
     });
   }
+
   
 
 
@@ -113,32 +117,38 @@ export class LoginComponent implements OnInit {
             }
             this.miHttp.registrarUsuario(this.registroForm.value).then(res => {
               this.spinerRegistro = false;
-              alert("registro res: " + res)
+              console.log("registro res: " + res)
               //this.router.navigate(['/']);
               let cerrar = document.getElementById('id01')
               cerrar.style.display = 'none';
+              this.mostarToast(res,"","info")
             }).catch(err => {
               this.spinerRegistro = false;
               console.log("error capturado: " + err.error);
-              alert(err.error)
+              //alert(err.error)
+              this.mostarToast("Error",err.error,"error")
             });
           } else {
             //return this.MostarMensaje("Las clave no coinciden",false,'msjRegistro');
-            alert("Las clave no coinciden");
+            //alert("Las clave no coinciden");
+            this.mostarToast("Las clave no coinciden","","warning")
             console.log("Las clave no coinciden");
           }
         } else {
           //return this.MostarMensaje("Debe ingresar un correo",false,'msjRegistro');
-          alert("Contraseña no debe ser menor a 6 caracteres");
+          //alert("Contraseña no debe ser menor a 6 caracteres");
+          this.mostarToast("Contraseña menor a 6 caracteres","","warning")
           console.log("Contraseña no debe ser menor a 6 caracteres");
         }
       } else {
         //return this.MostarMensaje("Contraseña no debe ser menor a 6 caracteres",false,'msjRegistro');
-        alert("Debe ingresar un correo");
+        //alert("Debe ingresar un correo");
+        this.mostarToast("Debe ingresar un correo","","warning")
         console.log("Debe ingresar un correo");
       }
     }else{
-      alert("Debe ingresar un nombre");
+      //alert("Debe ingresar un nombre");
+      this.mostarToast("Debe ingresar un nombre","","warning")
       console.log("Debe ingresar un nombre");
     }
   }
@@ -153,25 +163,25 @@ export class LoginComponent implements OnInit {
       }, 3000);
     }
 
-    // cargando() {
-    //   let loader = this.loadingCtrl.create({
-    //     content: "Cargando...",
-    //     duration: 3000
-    //   });
-    //   return loader;
-    // }
-
-    // Entrar(){
-
-    //   if (this.usuario === 'admin' && this.clave === 'admin') {
-    //     this.MostarMensaje("Bienvendio!!!"+ this.usuario,true);
-    //     this.router.navigate(['/Principal']);
-    //   }
-    //   else{
-    //     this.MostarMensaje("Error en usuario o contraseña",false);
-
-    //   }
-    // }
+    mostarToast(titulo:string,mensaje:string,tipo:string) {
+      //ToastrService.success/error/warning/info/show()
+      if (tipo =="success") {
+        this.toastr.success(mensaje,titulo);
+      }
+      if (tipo =="error") {
+        this.toastr.error(mensaje,titulo);
+      }
+      if (tipo =="warning") {
+        this.toastr.warning(mensaje,titulo);
+      }
+      if (tipo =="info") {
+        this.toastr.info(mensaje,titulo);
+      }
+      if (tipo =="show") {
+        this.toastr.show(mensaje,titulo);
+      }
+      
+    }
 
     MostarMensaje(mensaje: string = "este es el mensaje", ganador: boolean = false, tipo: string) {
       this.Mensajes = mensaje;

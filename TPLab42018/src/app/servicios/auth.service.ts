@@ -8,7 +8,7 @@ import { GlobalService } from '../servicios/global.service'
 
 @Injectable()
 export class AuthService {
-  private url2: any = "http://127.0.0.1:8080/PHPhumberto/";
+  //private url2: any = "http://127.0.0.1:8080/PHPhumberto/";
   private url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
   private token: string;
 
@@ -43,6 +43,16 @@ export class AuthService {
   }
   public registrarUsuario(datos:any) : Promise<any> {
     return this.post<any>('empleado/alta', datos).toPromise();
+  }
+
+  public traerTodos() {
+    return this.get<Array<any>>('empleado/').toPromise();
+  }
+  public traerSuspendidos() {
+    return this.get<Array<any>>('empleado/suspendidos').toPromise();
+  }
+  public pedidoGet(api:string) {
+    return this.get<Array<any>>(api).toPromise();
   }
 
   public logout() {

@@ -3,5 +3,68 @@
   <p *ngIf="mostrarIF == 'si'">
     Sos administrador
   </p>
-  <app-registro></app-registro>
+  <!-- <button (click)="listar()">Listar</button> -->
+  <div class="container">
+    <div *ngIf="mostrarClientes == true">
+        <h1><b>Listado de clientes</b></h1>
+           <table class="table table-condensed table-hover">
+             <thead>
+               <tr>
+                 <th>id</th>
+                 <th>nombre</th>
+                 <th>email</th>
+                 <th>tipo</th>
+                 <th>estado</th>
+                 <th>accion</th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr  *ngFor="let usuario of listadoDeClientes">
+                 <td >{{usuario.id}} </td>
+                 <td>{{usuario.nombre}} </td>
+                 <td>{{usuario.email}} </td>
+                 <td>{{usuario.tipo}} </td>
+                 <td>{{usuario.estado}} </td>
+                 <td><button>Nada por ahora</button> </td>
+               </tr>
+             </tbody>
+           </table>           
+    </div>
+    <div *ngIf="mostrarClientes == false">
+        <h1><b>Listado de clientes</b></h1>
+        <h3>{{mensajeClientes}}</h3>
+     </div>
+  </div>
+
+  <div class="container">
+      <div *ngIf="mostrarEmpleados == true">
+          <h1><b>Listado de empleados</b></h1>
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>nombre</th>
+                <th>email</th>
+                <th>tipo</th>
+                <th>estado</th>
+                <th>accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let usuario of listadoDeUsuarios">
+                <td >{{usuario.id}} </td>
+                <td>{{usuario.nombre}} </td>
+                <td>{{usuario.email}} </td>
+                <td>{{usuario.tipo}} </td>
+                <td>{{usuario.estado}} </td>
+                <td><button>Nada por ahora</button> </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div *ngIf="mostrarEmpleados == false">
+          <h1><b>Listado de empleados</b></h1>
+          <h3>{{mensajeEmpleado}}</h3>
+       </div>
+  </div>
 </div>
