@@ -3,6 +3,7 @@
   <p *ngIf="mostrarIF == 'si'">
     Sos administrador
   </p>
+
   <!-- <button (click)="listar()">Listar</button> -->
   <div class="container">
     <div *ngIf="mostrarClientes == true">
@@ -19,12 +20,12 @@
                </tr>
              </thead>
              <tbody>
-               <tr  *ngFor="let usuario of listadoDeClientes">
-                 <td >{{usuario.id}} </td>
+               <tr  *ngFor="let usuario of listadoDeClientes | admin">
+                 <td>{{usuario.id}} </td>
                  <td>{{usuario.nombre}} </td>
                  <td>{{usuario.email}} </td>
                  <td>{{usuario.tipo}} </td>
-                 <td>{{usuario.estado}} </td>
+                 <td [appColor] = "usuario.estado" >{{usuario.estado}} </td>
                  <td><button>Nada por ahora</button> </td>
                </tr>
              </tbody>
@@ -51,18 +52,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr  *ngFor="let usuario of listadoDeUsuarios">
+              <tr *ngFor="let usuario of listadoDeUsuarios | admin">
                 <td >{{usuario.id}} </td>
                 <td>{{usuario.nombre}} </td>
                 <td>{{usuario.email}} </td>
-                <td>{{usuario.tipo}} </td>
+                <td [appColor] = "usuario.tipo" >{{ usuario.tipo }} </td>
                 <td>{{usuario.estado}} </td>
                 <td><button>Nada por ahora</button> </td>
               </tr>
             </tbody>
           </table>
       </div>
-      <div *ngIf="mostrarEmpleados == false">
+      <div  *ngIf="mostrarEmpleados == false">
           <h1><b>Listado de empleados</b></h1>
           <h3>{{mensajeEmpleado}}</h3>
        </div>

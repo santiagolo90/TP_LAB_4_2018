@@ -8,7 +8,7 @@ import { GlobalService } from '../servicios/global.service'
 
 @Injectable()
 export class AuthService {
-  //private url2: any = "http://127.0.0.1:8080/PHPhumberto/";
+  //private url: any = "http://127.0.0.1:8080/PHPhumberto/";
   private url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
   private token: string;
 

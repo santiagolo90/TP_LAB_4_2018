@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { ElementRef } from '@angular/core';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css']
 })
+
 export class PrincipalComponent implements OnInit {
   @Input() dato: any[];
   mostrarIF:string;
@@ -21,7 +23,8 @@ export class PrincipalComponent implements OnInit {
 
   constructor(public miHttp: AuthService,
     public http: Http,
-    private router: Router) {
+    private router: Router,
+    public miElementRef:ElementRef) {
   }
 
   ngOnInit() {

@@ -32,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ToastrModule } from 'ngx-toastr';
 import { AdminPipe } from './pipe/admin.pipe';
+import { ColorDirective } from './directivas/color.directive';
+import { BoldPipe } from './pipe/bold.pipe';
 
 
 
@@ -43,7 +45,9 @@ import { AdminPipe } from './pipe/admin.pipe';
     PrincipalComponent,
     RegistroComponent,
     HeaderComponent,
-    AdminPipe
+    AdminPipe,
+    ColorDirective,
+    BoldPipe
   ],
   imports: [
     BrowserModule,
