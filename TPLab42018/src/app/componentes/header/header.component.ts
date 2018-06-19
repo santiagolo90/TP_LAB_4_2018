@@ -2,6 +2,7 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../../servicios/auth.service'
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,6 +28,10 @@ export class HeaderComponent implements OnInit {
     console.log("estoy en header ocultado");
     //this.dato = "no";
     this.enviarDato.emit("no");
+  }
+
+  permitirAcceso(){
+    this.miHttp.sosAdmin()
   }
 
 }

@@ -19,6 +19,11 @@ export class AuthService {
     this.token = localStorage.getItem('token');
     //this.getData();
   }
+
+  ngOnInit() {
+    this.token = localStorage.getItem('token');
+  }
+
   public post<T>(api: string, body: any) {
     return this.http.post<T>(this.url + api, body);
   }
@@ -71,15 +76,51 @@ export class AuthService {
     }
   }
 
-  public sosAdmin(miToken: string) {
-    let info = this.helper.decodeToken(miToken);
-    if (info) {
-      console.log("sos ", info.data.tipo);
-      if (info.data.tipo === "admin") {
-        return true;
-      }
-    }
-    return false;
+  // public sosAdmin(miToken: string) {
+  //   let info = this.helper.decodeToken(miToken);
+  //   if (info) {
+  //     console.log("sos ", info.data.tipo);
+  //     if (info.data.tipo === "admin") {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
+  public sosAdmin() : boolean {
+    let miToken = this.helper.decodeToken(this.token);
+     if (miToken.data.tipo === "admin") {
+       //console.log("sos ", miToken.data.tipo);
+       return true;
+     }else{
+       return false;
+     }
+  }
+  public sosEncargado() : boolean {
+    let miToken = this.helper.decodeToken(this.token);
+     if (miToken.data.tipo === "encargado") {
+       console.log("sos ", miToken.data.tipo);
+       return true;
+     }else{
+       return false;
+     }
+  }
+  public sosChofer() : boolean {
+    let miToken = this.helper.decodeToken(this.token);
+     if (miToken.data.tipo === "chofer") {
+       console.log("sos ", miToken.data.tipo);
+       return true;
+     }else{
+       return false;
+     }
+  }
+  public sosCliente() : boolean {
+    let miToken = this.helper.decodeToken(this.token);
+     if (miToken.data.tipo === "cliente") {
+       console.log("sos ", miToken.data.tipo);
+       return true;
+     }else{
+       return false;
+     }
   }
 
   public sosActivo(miToken: string) {
@@ -91,6 +132,26 @@ export class AuthService {
       }
     }
     return false;
+  }
+
+  public estasLogueado() : boolean {
+    //let miToken = localStorage.getItem('token');
+    let miToken: string;
+    if (this.token == undefined) {
+      if (localStorage.getItem('token') != null) {
+        console.log("local: ", localStorage.getItem('token'));
+        miToken = localStorage.getItem('token')
+      }else{
+        console.log("acceso denegado");
+        return false;
+      }      
+    }else{
+      console.log("token solo: ", this.token);
+      miToken= this.token;
+    }
+    console.log("miToken: ",miToken);
+    return miToken != null && !this.helper.isTokenExpired(miToken);
+    //return !this.helper.isTokenExpired(miToken);
   }
 
 

@@ -18,6 +18,7 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { AuthService } from './servicios/auth.service'
 import { GlobalService } from './servicios/global.service'
 import { VerificarJwtService } from './seguridad/verificar-jwt.service'
+import { LogueadoService } from './seguridad/logueado.service'
 import { RegistroComponent } from './componentes/registro/registro.component';
 
 //primeng
@@ -35,6 +36,12 @@ import { AdminPipe } from './pipe/admin.pipe';
 import { ColorDirective } from './directivas/color.directive';
 import { BoldPipe } from './pipe/bold.pipe';
 
+import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+//maps
+import { AgmCoreModule } from '@agm/core';
+import { MapaComponent } from './componentes/mapa/mapa.component';
+import { ViajeComponent } from './componentes/viaje/viaje.component';
+
 
 
 @NgModule({
@@ -47,7 +54,9 @@ import { BoldPipe } from './pipe/bold.pipe';
     HeaderComponent,
     AdminPipe,
     ColorDirective,
-    BoldPipe
+    BoldPipe,
+    MapaComponent,
+    ViajeComponent
   ],
   imports: [
     BrowserModule,
@@ -80,10 +89,19 @@ import { BoldPipe } from './pipe/bold.pipe';
       //positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
-    
+    RecaptchaModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDCria6NQZfqUqU9U8XmDfvsq9s3lFLRCI'
+    })
     
   ],
-  providers: [GlobalService,AuthService,VerificarJwtService],
+  providers: [{
+    provide: RECAPTCHA_SETTINGS,
+    useValue: { siteKey: '6LdPDF8UAAAAAOWx4CerXHFoHQb_SDUxzZY1J8zJ' } as RecaptchaSettings,},
+    GlobalService,
+    AuthService,
+    VerificarJwtService,
+    LogueadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

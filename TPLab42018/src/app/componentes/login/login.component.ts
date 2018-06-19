@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   clave: string;
   email: string;
   token: string;
+  public resolved : boolean = false;
 
   public reactiveForm: FormGroup;
 
@@ -151,6 +152,9 @@ export class LoginComponent implements OnInit {
       this.mostarToast("Debe ingresar un nombre","","warning")
       console.log("Debe ingresar un nombre");
     }
+  }
+  resolvedCaptcha(result) {
+    this.resolved = true;
   }
 
 

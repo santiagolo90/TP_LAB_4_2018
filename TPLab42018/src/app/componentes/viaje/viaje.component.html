@@ -1,0 +1,83 @@
+<!-- <app-header (enviarDato)="Enviar($event)"></app-header>
+<div class="container">
+  <p>
+    viaje works!
+  </p>
+
+
+
+</div> -->
+<!-- <input type="button"   value="Eliminar"/> -->
+<a class="btnModal" onclick="document.getElementById('id01').style.display='block';">Nuevo Viaje</a>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <form class="modal-content animate">
+      <div class="container">
+        <h2 style="text-align: center;">Nuevo viaje</h2>
+
+          <button type="button" onclick="document.getElementById('desde').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block" >Desde</button>
+          <button type="button" onclick="document.getElementById('hasta').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block">Hasta</button>
+          <div class="form-group">
+          <h4><b>Tipo de vehiculo</b></h4>
+          <select class="form-control input-lg" [(ngModel)]="tipo" name="tipo" >
+              <option value="Normal">Normal</option>
+              <option value="Grande">Grande</option>
+              <option value="Lujoso">Lujoso</option>
+            </select>
+          </div>
+          <div class="form-group">
+          <h4><b>Medio de pago</b></h4>
+          <select class="form-control input-lg" [(ngModel)]="pago"   name="pagp" >
+              <option value="Efectivo">Efectivo</option>
+              <option value="cuenta">Cuenta Corriente</option>
+              <option value="Lujoso">Lujoso</option>
+            </select>
+          </div>
+
+        <div class="clearfix">
+          <h4 *ngIf="spinerRegistro == true">
+            <p>
+              <img src="./assets/imagenes/mate/cargando.gif">Espere</p>
+          </h4>
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
+          <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button>
+        </div>
+        <section id="msjRegistro"></section>
+      </div>
+    </form>
+  </div>
+
+  <div id="desde" class="modal">
+      <span onclick="document.getElementById('desde').style.display='none'" class="close" title="Close Modal">×</span>
+      <form class="modal-content animate">
+        <div class="container">
+          <h2 style="text-align: center;">Origen</h2>
+          <agm-map [latitude]="latOrigen" [longitude]="lngOrigen" [zoom]="zoom"  (mapDblClick)="seccionarOrigen($event)" disableDoubleClickZoom=true >
+              <agm-marker [latitude]="latOrigen" [longitude]="lngOrigen"></agm-marker>
+            </agm-map>
+          <div class="clearfix">
+
+            <button type="button" onclick="document.getElementById('desde').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button>
+            <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="hasta" class="modal">
+        <span onclick="document.getElementById('hasta').style.display='none'" class="close" title="Close Modal">×</span>
+        <form class="modal-content animate">
+          <div class="container">
+            <h2 style="text-align: center;">Origen</h2>
+            <agm-map [latitude]="latDestino" [longitude]="lngDetino" [zoom]="zoom"  (mapDblClick)="seccionarDestino($event)" disableDoubleClickZoom=true >
+                <agm-marker [latitude]="latDestino" [longitude]="lngDetino"></agm-marker>
+              </agm-map>
+            <div class="clearfix">
+  
+              <button type="button" onclick="document.getElementById('hasta').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button>
+              <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+            </div>
+          </div>
+        </form>
+      </div>
