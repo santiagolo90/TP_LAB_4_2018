@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  Registrar() {
+    Registrar() {
     if (this.registroForm.value['nombre'] != null && this.registroForm.value['nombre'] != "") {
       if (this.registroForm.value['email']  != null && this.registroForm.value['email']  != "") {
         if (this.registroForm.value['clave']!= null && this.registroForm.value['clave'].length > 5) {
@@ -152,10 +152,30 @@ export class LoginComponent implements OnInit {
       this.mostarToast("Debe ingresar un nombre","","warning")
       console.log("Debe ingresar un nombre");
     }
-  }
-  resolvedCaptcha(result) {
+    }
+    resolvedCaptcha(result) {
     this.resolved = true;
-  }
+    }
+
+    autoLogin(datosAutoLogin:string){
+      switch(datosAutoLogin) {
+        case 'encargado' :
+          this.email = "santiago@humberto.com";
+          this.clave = "abc123";
+          this.enviarLogin();
+        break;
+        case 'chofer' :
+          this.email = "chofer@humberto.com";
+          this.clave = "abc123";
+          this.enviarLogin();
+        break;
+        case 'cliente' : 
+          this.email = "cliente@humberto.com"
+          this.clave = "abc123";
+          this.enviarLogin();
+        break;
+      }
+    }
 
 
     spinerLogin() {

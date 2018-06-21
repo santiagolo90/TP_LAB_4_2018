@@ -12,15 +12,15 @@
 
 <div id="id01" class="modal">
     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-    <form class="modal-content animate">
+    <form class="modal-content animate" [formGroup]="registroForm">
       <div class="container">
         <h2 style="text-align: center;">Nuevo viaje</h2>
 
-          <button type="button" onclick="document.getElementById('desde').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block" >Desde</button>
-          <button type="button" onclick="document.getElementById('hasta').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block">Hasta</button>
+          <button  type="button" onclick="document.getElementById('desde').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block" >Desde</button>
+          <button  type="button" onclick="document.getElementById('hasta').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block">Hasta</button>
           <div class="form-group">
           <h4><b>Tipo de vehiculo</b></h4>
-          <select class="form-control input-lg" [(ngModel)]="tipo" name="tipo" >
+          <select class="form-control input-lg" [formControl]="tipo"  name="tipo" >
               <option value="Normal">Normal</option>
               <option value="Grande">Grande</option>
               <option value="Lujoso">Lujoso</option>
@@ -28,11 +28,17 @@
           </div>
           <div class="form-group">
           <h4><b>Medio de pago</b></h4>
-          <select class="form-control input-lg" [(ngModel)]="pago"   name="pagp" >
+          <select class="form-control input-lg" [formControl]="pago" name="pago" >
               <option value="Efectivo">Efectivo</option>
               <option value="cuenta">Cuenta Corriente</option>
-              <option value="Lujoso">Lujoso</option>
             </select>
+          </div>
+          <div class="bordeNumeros">
+              <h4><b>Resolver operación</b></h4>
+            <img src="{{nuevoJuego.numeroUnoIMG}}">
+            <img src="{{nuevoJuego.operadorIMG}}">
+            <img src="{{nuevoJuego.numeroDosIMG}}">
+            <input [formControl]="miNumero" placeholder="Ingrese respuesta" name="miNumero" type="number" class="form-control"/>
           </div>
 
         <div class="clearfix">
@@ -41,7 +47,8 @@
               <img src="./assets/imagenes/mate/cargando.gif">Espere</p>
           </h4>
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
-          <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button>
+          <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || this.miNumero.value == 0" (click)="Registrar()" >Aceptar</button>
         </div>
         <section id="msjRegistro"></section>
       </div>

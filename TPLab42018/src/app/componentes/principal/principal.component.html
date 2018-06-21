@@ -5,7 +5,7 @@
   </p>
 
   <!-- <button (click)="listar()">Listar</button> -->
-  <div class="container">
+
     <div *ngIf="mostrarClientes == true">
         <h1><b>Listado de clientes</b></h1>
            <table class="table table-condensed table-hover">
@@ -26,7 +26,10 @@
                  <td>{{usuario.email}} </td>
                  <td>{{usuario.tipo}} </td>
                  <td [appColor] = "usuario.estado" >{{usuario.estado}} </td>
-                 <td><button>Nada por ahora</button> </td>
+                 <td>
+                   <button *ngIf="usuario.estado == 'SUSPENDIDO'" type="button" class="btn btn-success btn-block" (click)="activarSuspender(usuario.id,'empleado/activar')" >Activar</button>
+                   <button *ngIf="usuario.estado != 'SUSPENDIDO'" type="button" class="btn btn-warning btn-block" (click)="activarSuspender(usuario.id,'empleado/suspender')" >Supender</button>
+                </td>
                </tr>
              </tbody>
            </table>           
@@ -35,9 +38,9 @@
         <h1><b>Listado de clientes</b></h1>
         <h3>{{mensajeClientes}}</h3>
      </div>
-  </div>
 
-  <div class="container">
+
+
       <div *ngIf="mostrarEmpleados == true">
           <h1><b>Listado de empleados</b></h1>
           <table class="table table-condensed table-hover">
@@ -58,7 +61,10 @@
                 <td>{{usuario.email}} </td>
                 <td [appColor] = "usuario.tipo" >{{ usuario.tipo }} </td>
                 <td>{{usuario.estado}} </td>
-                <td><button>Nada por ahora</button> </td>
+                <td>
+                    <button *ngIf="usuario.estado == 'SUSPENDIDO'" type="button" class="btn btn-success btn-block" (click)="activarSuspender(usuario.id,'empleado/activar')" >Activar</button>
+                    <button *ngIf="usuario.estado != 'SUSPENDIDO'" type="button" class="btn btn-warning btn-block" (click)="activarSuspender(usuario.id,'empleado/suspender')" >Supender</button>
+                 </td>
               </tr>
             </tbody>
           </table>
@@ -67,5 +73,5 @@
           <h1><b>Listado de empleados</b></h1>
           <h3>{{mensajeEmpleado}}</h3>
        </div>
-  </div>
+
 </div>

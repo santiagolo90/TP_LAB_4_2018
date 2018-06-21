@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service'
+import { UsuarioService } from '../../servicios/usuario.service'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { ElementRef } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,9 +24,11 @@ export class PrincipalComponent implements OnInit {
   mensajeEmpleado:string;
 
   constructor(public miHttp: AuthService,
-    public http: Http,
-    private router: Router,
-    public miElementRef:ElementRef) {
+              public miHttpUsuario: UsuarioService,
+              private toastr: ToastrService,
+              public http: Http,
+              private router: Router,
+              public miElementRef:ElementRef) {
   }
 
   ngOnInit() {
@@ -71,5 +75,42 @@ export class PrincipalComponent implements OnInit {
   });
 
  }
+
+ activarSuspender(miID:number, accion:string){
+   //alert(id + accion)
+   let usuario = {id:miID}
+   return this.miHttpUsuario.activarSuspender(accion,usuario).then( data => {
+    console.log(  data );
+    this.mostarToast(data,"","success")
+    this.listar();
+    this.listarClientes();
+  })
+  .catch( err => {
+    console.log( err );
+    this.mostarToast(err,"","warning")
+    return null;
+  });
+
+ }
+
+ mostarToast(titulo:string,mensaje:string,tipo:string) {
+  //ToastrService.success/error/warning/info/show()
+  if (tipo =="success") {
+    this.toastr.success(mensaje,titulo);
+  }
+  if (tipo =="error") {
+    this.toastr.error(mensaje,titulo);
+  }
+  if (tipo =="warning") {
+    this.toastr.warning(mensaje,titulo);
+  }
+  if (tipo =="info") {
+    this.toastr.info(mensaje,titulo);
+  }
+  if (tipo =="show") {
+    this.toastr.show(mensaje,titulo);
+  }
+  
+}
 
 }

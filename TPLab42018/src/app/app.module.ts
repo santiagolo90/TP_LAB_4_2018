@@ -17,6 +17,7 @@ import { HeaderComponent } from './componentes/header/header.component';
 //Servicios
 import { AuthService } from './servicios/auth.service'
 import { GlobalService } from './servicios/global.service'
+import { UsuarioService } from './servicios/usuario.service'
 import { VerificarJwtService } from './seguridad/verificar-jwt.service'
 import { LogueadoService } from './seguridad/logueado.service'
 import { RegistroComponent } from './componentes/registro/registro.component';
@@ -41,6 +42,7 @@ import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recap
 import { AgmCoreModule } from '@agm/core';
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { ViajeComponent } from './componentes/viaje/viaje.component';
+import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.component';
 
 
 
@@ -56,7 +58,8 @@ import { ViajeComponent } from './componentes/viaje/viaje.component';
     ColorDirective,
     BoldPipe,
     MapaComponent,
-    ViajeComponent
+    ViajeComponent,
+    MiCaptchaComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +103,7 @@ import { ViajeComponent } from './componentes/viaje/viaje.component';
     useValue: { siteKey: '6LdPDF8UAAAAAOWx4CerXHFoHQb_SDUxzZY1J8zJ' } as RecaptchaSettings,},
     GlobalService,
     AuthService,
+    UsuarioService,
     VerificarJwtService,
     LogueadoService],
   bootstrap: [AppComponent]

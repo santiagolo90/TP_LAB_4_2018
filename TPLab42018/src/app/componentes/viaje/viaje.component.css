@@ -9,6 +9,10 @@
 agm-map {
   height: 300px;
 }
+.bordeNumeros{
+  background-color: #0A5699;
+  width: 169px;
+}
 .row{
     background: white
   }
@@ -111,7 +115,7 @@ agm-map {
   
   /* Modal Content/Box */
   .modal-content {
-    background: #3F729B;
+    background: #0A5699;
     color:whitesmoke;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
