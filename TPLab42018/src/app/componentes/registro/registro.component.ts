@@ -11,7 +11,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-  spinerRegistro: boolean = false;
+  mostrarPatente:boolean = false;
+  patente:string ="sin patente";
+  mostrarSpinner: boolean = false;
 
   constructor(public miHttp: AuthService,
     public http: Http,
@@ -44,9 +46,14 @@ export class RegistroComponent implements OnInit {
     Validators.required,
   ]);
 
+  formPatente = new FormControl("sin patente", [
+    Validators.required,
+  ]);
+
   formEstado = new FormControl('', [
     Validators.required,
   ]);
+
   
 
 
@@ -55,50 +62,53 @@ export class RegistroComponent implements OnInit {
     email: this.formEmail,
     clave: this.formClave,
     tipo: this.formTipo,
-    estado: this.formEstado
+    estado: this.formEstado,
+    patente: this.formPatente
   });
 
   Mostrar(){
     //alert("Usuario Registrado");
     //console.log(this.registroForm.get('tipo').value); 
   }
+  esChofer(valor:any){    
+    console.log("valor: ",valor);
+    if (valor === "chofer") {
+      console.log(true);
+      //return true;
+      return this.mostrarPatente = true;
+    }
+    this.mostrarPatente = false;
+  }
   Registrar() {
     if (this.registroForm.value['nombre'] != null && this.registroForm.value['nombre'] != "") {
       if (this.registroForm.value['email']  != null && this.registroForm.value['email']  != "") {
         if (this.registroForm.value['clave']!= null && this.registroForm.value['clave'].length > 5) {
           if (this.registroForm.value['clave'] == this.formClave2.value ) {
-            this.spinerRegistro = true;
+            this.mostrarSpinner = true;
             this.miHttp.registrarUsuario(this.registroForm.value).then(res => {
-              this.spinerRegistro = false;
+              this.mostrarSpinner = false;
               //alert("registro res: " + res)
               this.router.navigate(['/principal']);
               this.mostarToast(res,"","info")
             }).catch(err => {
-              this.spinerRegistro = false;
+              this.mostrarSpinner = false;
               console.log("error capturado: " + err.error);
               //alert(err.error)
               this.mostarToast("Error",err.error,"error")
             });
           } else {
-            //return this.MostarMensaje("Las clave no coinciden",false,'msjRegistro');
-            //alert("Las clave no coinciden");
             this.mostarToast("Las clave no coinciden","","warning")
             console.log("Las clave no coinciden");
           }
         } else {
-          //return this.MostarMensaje("Debe ingresar un correo",false,'msjRegistro');
-          //alert("Contraseña no debe ser menor a 6 caracteres");
           this.mostarToast("Contraseña menor a 6 caracteres","","warning")
           console.log("Contraseña no debe ser menor a 6 caracteres");
         }
       } else {
-        //return this.MostarMensaje("Contraseña no debe ser menor a 6 caracteres",false,'msjRegistro');
-        //alert("Debe ingresar un correo");
         this.mostarToast("Debe ingresar un correo","","warning")
         console.log("Debe ingresar un correo");
       }
     }else{
-      //alert("Debe ingresar un nombre");
       this.mostarToast("Debe ingresar un nombre","","warning")
       console.log("Debe ingresar un nombre");
     }

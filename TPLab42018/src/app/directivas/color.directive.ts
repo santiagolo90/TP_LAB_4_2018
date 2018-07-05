@@ -23,7 +23,7 @@ export class ColorDirective {
       this.miElementRef.nativeElement.style.fontWeight ="bold";
       this.miElementRef.nativeElement.style.backgroundColor ='#007E33';//verde
     }
-    if (this.tipo ==="SUSPENDIDO") {//ElementType.bold
+    if (this.tipo ==="suspendido") {//ElementType.bold
       this.miElementRef.nativeElement.style.color ="white";
       this.miElementRef.nativeElement.style.fontWeight ="bold";
       this.miElementRef.nativeElement.style.backgroundColor ='#CC0000';//rojo

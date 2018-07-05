@@ -18,9 +18,13 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { AuthService } from './servicios/auth.service'
 import { GlobalService } from './servicios/global.service'
 import { UsuarioService } from './servicios/usuario.service'
+import { ClientesService } from './servicios/clientes.service'
+import { ChoferesService } from './servicios/choferes.service'
+import { VehiculosService } from './servicios/vehiculos.service'
 import { VerificarJwtService } from './seguridad/verificar-jwt.service'
 import { LogueadoService } from './seguridad/logueado.service'
 import { RegistroComponent } from './componentes/registro/registro.component';
+import { SpinnerService } from './servicios/spinner.service'
 
 //primeng
 //import {MenubarModule} from 'primeng/menubar';
@@ -32,6 +36,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 //Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatDialogModule, MatSortModule, MatMenu, MatMenuModule } from '@angular/material';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 import { ToastrModule } from 'ngx-toastr';
 import { AdminPipe } from './pipe/admin.pipe';
 import { ColorDirective } from './directivas/color.directive';
@@ -43,6 +56,14 @@ import { AgmCoreModule } from '@agm/core';
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { ViajeComponent } from './componentes/viaje/viaje.component';
 import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.component';
+import { GrillaChoferesComponent } from './componentes/grilla-choferes/grilla-choferes.component';
+import { GrillaClientesComponent } from './componentes/grilla-clientes/grilla-clientes.component';
+import { GrillaVehiculosComponent } from './componentes/grilla-vehiculos/grilla-vehiculos.component';
+import { RegistroVehiculosComponent } from './componentes/registro-vehiculos/registro-vehiculos.component';
+
+import { MaskInput } from 'mask-ioni-3/mask-input';
+import {InputMaskModule} from 'primeng/inputmask';
+import { SupendidoActivoDirective } from './directivas/supendido-activo.directive';
 
 
 
@@ -59,7 +80,13 @@ import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.componen
     BoldPipe,
     MapaComponent,
     ViajeComponent,
-    MiCaptchaComponent
+    MiCaptchaComponent,
+    GrillaChoferesComponent,
+    GrillaClientesComponent,
+    GrillaVehiculosComponent,
+    RegistroVehiculosComponent,
+    MaskInput,
+    SupendidoActivoDirective
   ],
   imports: [
     BrowserModule,
@@ -69,7 +96,19 @@ import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.componen
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatSortModule,
+    MatMenuModule,
+    MatTableModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
     RuteoModule,
+    InputMaskModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -104,7 +143,11 @@ import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.componen
     GlobalService,
     AuthService,
     UsuarioService,
+    ClientesService,
+    ChoferesService,
+    VehiculosService,
     VerificarJwtService,
+    SpinnerService,
     LogueadoService],
   bootstrap: [AppComponent]
 })

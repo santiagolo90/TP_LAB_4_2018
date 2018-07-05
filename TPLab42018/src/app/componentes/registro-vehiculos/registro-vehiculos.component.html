@@ -1,0 +1,76 @@
+<app-header (enviarDato)="Enviar($event)"  ></app-header>
+
+<body>
+    <mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;" ></mat-spinner>
+  <form *ngIf="!mostrarSpinner"  [formGroup]="registroForm" class="modal-content animate" (ngSubmit)="Registrar()" >
+    <div class="container">
+      <br>
+      <div class="form-group">
+        <label for="patente"><b>patente</b></label>
+        <!-- <p-inputMask [formControl]="formPatente"  mask="99-9999"></p-inputMask> -->
+        <input type="text" [formControl]="formPatente" placeholder="AA-111-BB" [mask]="'xx-000-xx'"  class="form-control"  name="patente" required>
+      </div>
+      <div class="form-group">
+          <label for="tipo"><b>tipo</b></label>
+          <select class="form-control" [formControl]="formTipo" name="tipo" id="tipo" required>
+            <option value="normal">Normal</option>
+            <option value="grande">Grande</option>
+            <option value="lujoso">Lujoso</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="marca"><b>marca</b></label>
+          <select class="form-control" [formControl]="formMarca" name="marca" id="marca" required>
+            <option value="Audi">Audi</option>
+            <option value="Bmw">Bmw</option>
+            <option value="Chery">Chery</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Citroen">Citroen</option>
+            <option value="Dodge">Dodge</option>
+            <option value="Fiat">Fiat</option>
+            <option value="Ford">Ford</option>
+            <option value="Honda">Honda</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="MercedesBenz">MercedesBenz</option>
+            <option value="Nissan">Nissan</option>
+            <option value="Peugeot">Peugeot</option>
+            <option value="Renault">Renault</option>
+            <option value="Suzuki">Suzuki</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Volkswagen">Volkswagen</option>
+            <option value="Volvo">Volvo</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <label for="color"><b>color</b></label>
+            <select class="form-control" [formControl]="formColor" name="color" id="color" required>
+                <option value="Amarillo">Amarillo</option>
+                <option value="Azul">Azul</option>
+                <option value="Bordo">Bordo</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Gris">Gris</option>
+                <option value="Marron">Marron</option>
+                <option value="Naranja">Naranja</option>
+                <option value="Negro">Negro</option>
+                <option value="Rojo">Rojo</option>
+                <option value="Verde">Verde</option>
+                <option value="Violeta">Violeta</option>
+                <option value="Otro">Otro</option>
+            </select>
+          </div>
+      <!-- <div class="form-group">
+          <label for="estado"><b>estado</b></label>
+          <select class="form-control" [formControl]="formEstado"  name="estado" id="estado" required>
+            <option value="libre">libre</option>
+            <option value="ocupado">ocupado</option>
+          </select>
+        </div> -->
+        <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
+      <div>
+        <button type="submit" class="btn btn-success btn-lg" [disabled]="!registroForm.valid">Registrarme</button>
+      </div>
+      <br>
+    </div>
+  </form>
+</body>

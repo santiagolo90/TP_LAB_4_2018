@@ -16,12 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 export class PrincipalComponent implements OnInit {
   @Input() dato: any[];
   mostrarIF:string;
-  public listadoDeUsuarios: Array<any>;
-  public listadoDeClientes: Array<any>;
-  mostrarClientes:boolean = true;
-  mensajeClientes:string;
-  mostrarEmpleados:boolean = true;
-  mensajeEmpleado:string;
+  usuario:any;
+
+
 
   constructor(public miHttp: AuthService,
               public miHttpUsuario: UsuarioService,
@@ -32,8 +29,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listar();
-    this.listarClientes();
+    this.usuario = this.miHttp.getDataNombre();
   }
   Enviar(dato:any){
     console.log("Estoy en enviar: ",dato);
@@ -46,52 +42,10 @@ export class PrincipalComponent implements OnInit {
   }
 
 
-  public listar():Promise<Array<any>> {
-    return   this.miHttp.pedidoGet("empleado/empleados/").then( data => {
-         this.mostrarEmpleados = true;
-         console.log( "volvio de get / trae empleados: " );
-         console.log(  data );
-         this.listadoDeUsuarios=data;
-       })
-       .catch( err => {
-        this.mensajeEmpleado = err.error;
-        this.mostrarEmpleados = false;
-         console.log( err );
-         return null;
-       });
- }
- listarClientes(){
-  return   this.miHttp.pedidoGet("empleado/clientes/").then( data => {
-    this.mostrarClientes = true;
-    console.log( "volvio de get / trae clientes: " );
-    console.log(  data );
-    this.listadoDeClientes=data;
-  })
-  .catch( err => {
-    this.mensajeClientes = err.error;
-    this.mostrarClientes = false;
-    console.log( err );
-    return null;
-  });
 
- }
 
- activarSuspender(miID:number, accion:string){
-   //alert(id + accion)
-   let usuario = {id:miID}
-   return this.miHttpUsuario.activarSuspender(accion,usuario).then( data => {
-    console.log(  data );
-    this.mostarToast(data,"","success")
-    this.listar();
-    this.listarClientes();
-  })
-  .catch( err => {
-    console.log( err );
-    this.mostarToast(err,"","warning")
-    return null;
-  });
 
- }
+
 
  mostarToast(titulo:string,mensaje:string,tipo:string) {
   //ToastrService.success/error/warning/info/show()

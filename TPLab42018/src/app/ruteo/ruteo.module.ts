@@ -11,6 +11,10 @@ import { RegistroComponent } from '../componentes/registro/registro.component'
 import { VerificarJwtService } from '../seguridad/verificar-jwt.service'
 import { LogueadoService } from '../seguridad/logueado.service'
 import { ActivoJwtService } from '../seguridad/activo-jwt.service'
+import { GrillaChoferesComponent } from '../componentes/grilla-choferes/grilla-choferes.component'
+import { GrillaClientesComponent } from '../componentes/grilla-clientes/grilla-clientes.component'
+import { GrillaVehiculosComponent } from '../componentes/grilla-vehiculos/grilla-vehiculos.component'
+import { RegistroVehiculosComponent } from '../componentes/registro-vehiculos/registro-vehiculos.component'
 
 //agregue esto
 const MiRuteo = [
@@ -19,7 +23,11 @@ const MiRuteo = [
   {path: 'Principal' , component: PrincipalComponent,canActivate: [LogueadoService]},
   {path: 'registro' , component: RegistroComponent,canActivate: [LogueadoService,VerificarJwtService]},  
   {path: 'Registro' , component: RegistroComponent,canActivate: [LogueadoService,VerificarJwtService]},
-  {path: 'viaje' , component: ViajeComponent,canActivate: [LogueadoService]},      
+  {path: 'viaje' , component: ViajeComponent,canActivate: [LogueadoService]},
+  {path: 'choferes' , component: GrillaChoferesComponent,canActivate: [LogueadoService]},   
+  {path: 'clientes' , component: GrillaClientesComponent,canActivate: [LogueadoService]}, 
+  {path: 'vehiculos' , component: GrillaVehiculosComponent,canActivate: [LogueadoService]},
+  {path: 'rvehiculos' , component: RegistroVehiculosComponent,canActivate: [LogueadoService,VerificarJwtService]},     
   // { path: 'alumno' , component: AlumnoComponent ,
   // children:
   //      [{path: 'datos' , component: DatosComponent},

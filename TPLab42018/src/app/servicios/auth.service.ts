@@ -9,11 +9,14 @@ import { GlobalService } from '../servicios/global.service'
 @Injectable()
 export class AuthService {
   //private url: any = "http://127.0.0.1:8080/PHPhumberto/";
-  private url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
+  //private url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
   private token: string;
 
 
-  constructor(public http: HttpClient, public helper: JwtHelperService, public router: Router) {
+  constructor(public http: HttpClient, 
+              public helper: JwtHelperService, 
+              public router: Router,
+              public global: GlobalService) {
     //super(http, helper);
 
     this.token = localStorage.getItem('token');
@@ -25,11 +28,11 @@ export class AuthService {
   }
 
   public post<T>(api: string, body: any) {
-    return this.http.post<T>(this.url + api, body);
+    return this.http.post<T>(this.global.url + api, body);
   }
 
   public get<T>(api: string) {
-    return this.http.get<T>(this.url + api);
+    return this.http.get<T>(this.global.url + api);
   }
 
 
@@ -49,7 +52,6 @@ export class AuthService {
   public registrarUsuario(datos:any) : Promise<any> {
     return this.post<any>('empleado/alta', datos).toPromise();
   }
-
   public traerTodos() {
     return this.get<Array<any>>('empleado/').toPromise();
   }
@@ -73,6 +75,13 @@ export class AuthService {
       console.log("token: ", this.token);
       console.log(info.data.tipo);
       return info.data;
+    }
+  }
+  public getDataNombre(): void {
+    let info = this.helper.decodeToken(this.token);
+    if (info) {
+      //this.data = info.data as AuthData;
+      return info.data.nombre;
     }
   }
 

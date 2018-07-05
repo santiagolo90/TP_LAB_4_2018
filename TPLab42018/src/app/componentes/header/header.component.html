@@ -14,15 +14,15 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <!-- <li><a (click)="mostar()" role="button">Alta empleados</a></li> -->
-        <li><a routerLink="/registro" *ngIf="this.miHttp.sosAdmin()"  role="button">Alta empleados</a></li>
-        <li><a (click)="ocultar()" role="button">Proximamente</a></li>
+        <li><a routerLink="/registro" *ngIf="this.miHttp.sosAdmin()"  role="button">Alta usuarios</a></li>
+        <li><a routerLink="/rvehiculos" *ngIf="this.miHttp.sosAdmin()"  role="button">Alta vehiculos</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proximamente menu<span class="caret"></span></a>
+          <a href="#" *ngIf="this.miHttp.sosAdmin()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listados<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a role="button">Link uno</a></li>
-            <li><a role="button">Link dos</a></li>
-            <li><a role="button">Link tres</a></li>
-            <li><a role="button">Link cuatro</a></li>
+            <li><a routerLink="/clientes" role="button">Clientes</a></li>
+            <li><a routerLink="/choferes" role="button">Choferes</a></li>
+            <li><a routerLink="/vehiculos" role="button">Vehiculos</a></li>
+            <li><a routerLink="/choferes" role="button">Empleados</a></li>
           </ul>
         </li>
       </ul>

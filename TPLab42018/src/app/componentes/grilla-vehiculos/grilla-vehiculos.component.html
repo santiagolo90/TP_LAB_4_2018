@@ -1,0 +1,90 @@
+<app-header (enviarDato)="Enviar($event)"></app-header>
+<mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;" ></mat-spinner>
+<div *ngIf="!mostrarSpinner" class="container example-container mat-elevation-z8">
+  <h1>
+    Listado de vehiculos
+  </h1>
+  <label for="tipo">
+    <b>Estado</b>
+  </label>
+  <select class="form-control" [(ngModel)]="tipo" (change)="mostrarGrilla()" name="tipo" id="tipo">
+    <option value=todos>todos</option>
+    <option value=suspendido>suspendido</option>
+    <option value=activo>activo</option>
+  </select>
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro global">
+    </mat-form-field>
+    
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="patente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> patente </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.patente}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="tipo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> tipo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.tipo}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="marca">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> marca </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> color </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.color}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> estado </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.estado}} </mat-cell>
+        </ng-container>
+
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="Accion">
+      <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+      <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox> -->
+      <mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" *ngIf="row.estado == 'suspendido'" (click)="activarSuspender(row.id,'empleado/activar')">Activar</button>
+        <button mat-raised-button color="warn" *ngIf="row.estado == 'activo'" (click)="activarSuspender(row.id,'empleado/suspender')">Suspender</button>
+        <!-- <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'pendiente' "  class="btn btn-success" (click)="modificarTurno(row.idTurno,'completado')">Completar turno</button>
+          <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'completado' "  class="btn btn-warning" (click)="modificarTurno(row.idTurno,'pendiente')">Turno a pendiente</button> -->
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"  ></mat-row>
+  </mat-table>
+  <!-- <div style=" text-align: center" class="button-row">
+  <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('pdf')" ><i class="far fa-file-pdf fa-2x"></i></button>
+  <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('excel')" ><i class="far fa-file-excel fa-2x"></i></button>
+  <a mat-button href="{{php}}" (click)="phpExportar('pdf')" >PHP <i class="far fa-file-pdf fa-2x"></i></a>
+  <a mat-button href="{{php}}" (click)="phpExportar('excel')" >PHP <i class="far fa-file-excel fa-2x"></i></a>
+</div> -->
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+  </mat-paginator>
+
+</div>

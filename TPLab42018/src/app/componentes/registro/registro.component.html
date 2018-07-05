@@ -1,7 +1,8 @@
 <app-header (enviarDato)="Enviar($event)"  ></app-header>
 
 <body>
-  <form [formGroup]="registroForm" class="modal-content animate" (ngSubmit)="Registrar()" >
+  <mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;" ></mat-spinner>
+  <form *ngIf="!mostrarSpinner"  [formGroup]="registroForm" class="modal-content animate" (ngSubmit)="Registrar()" >
     <div class="container">
       <br>
       <div class="form-group">
@@ -23,13 +24,22 @@
       </div>
       <div class="form-group">
         <label for="tipo"><b>tipo</b></label>
-        <select class="form-control" [formControl]="formTipo"  name="tipoRegistro" id="tipoRegistro" required>
+        <select class="form-control" [formControl]="formTipo" (ngModelChange)="esChofer($event)" name="tipoRegistro" id="tipoRegistro" required>
           <option value="admin">admin</option>
           <option value="encargado">encargado</option>
           <option value="cliente">cliente</option>
           <option value="chofer">chofer</option>
         </select>
       </div>
+      <div *ngIf="this.mostrarPatente == true" class="form-group">
+          <label for="patente"><b>Patente</b></label>
+          <select class="form-control"  [formControl]="formPatente"  name="patente" id="patente">
+            <option value="sin patente">sin patente</option>
+            <option value="encargado">encargado</option>
+            <option value="cliente">cliente</option>
+            <option value="chofer">chofer</option>
+          </select>
+        </div>
       <div class="form-group">
           <label for="estado"><b>estado</b></label>
           <select class="form-control" [formControl]="formEstado"  name="EstadoRegistro" id="EstadoRegistro" required>
