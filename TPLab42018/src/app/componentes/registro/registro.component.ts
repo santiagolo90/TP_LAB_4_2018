@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { ToastrService } from 'ngx-toastr';
+import { VehiculosService } from '../../servicios/vehiculos.service';
 
 @Component({
   selector: 'app-registro',
@@ -14,15 +15,30 @@ export class RegistroComponent implements OnInit {
   mostrarPatente:boolean = false;
   patente:string ="sin patente";
   mostrarSpinner: boolean = false;
+  public arrayVehiculos: Array<any> = [];
+  public arrayVehiculosDesocupados: Array<any> = [];
 
   constructor(public miHttp: AuthService,
-    public http: Http,
-    private router: Router,
-    private formBuilder : FormBuilder,
-    private toastr: ToastrService) {
+              public http: Http,
+              public vehiculosService :VehiculosService,
+              private router: Router,
+              private formBuilder : FormBuilder,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
+    this.vehiculosService.traerTodosVehiculosDisponibles().then(res => {
+      this.arrayVehiculos = res;
+      this.arrayVehiculos.forEach(element => {
+        if (element.estado == "libre") {
+          this.arrayVehiculosDesocupados.push(element);
+          console.log(this.arrayVehiculosDesocupados);
+        }
+      });
+      console.log("arrayVehiculos ", this.arrayVehiculos);
+    }).catch(err => {
+      console.log("Error al traer vehiculos disponibles: ",err);
+    });
   }
 
   formNombre = new FormControl('', [
@@ -50,7 +66,7 @@ export class RegistroComponent implements OnInit {
     Validators.required,
   ]);
 
-  formEstado = new FormControl('', [
+  formEstado = new FormControl('suspendido', [
     Validators.required,
   ]);
 

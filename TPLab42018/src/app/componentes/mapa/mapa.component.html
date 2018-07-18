@@ -1,7 +1,21 @@
-<h1>{{ title }}</h1>
+<h2>{{ title }}</h2>
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapDblClick)="dobleClick($event)" disableDoubleClickZoom=true >
+<!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapDblClick)="dobleClick($event)" disableDoubleClickZoom=true >
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+</agm-map> -->
+<mat-dialog-content>
+    <div style="width: 100%; height: 300px">
+        <agm-map (mapDblClick)="dobleClick($event)" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+          <agm-marker *ngIf="!data.showRuta" [latitude]="lat" [longitude]="lng"></agm-marker>
+          <agm-direction *ngIf="data.showRuta" [origin]="origen" [destination]="destino">
+          </agm-direction>
+        </agm-map>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions style="float:right;">
+<button *ngIf="data && !data.hidenButtons" mat-raised-button mat-dialog-close>Cancelar</button>
+<button *ngIf="data && !data.hidenButtons" mat-raised-button color="primary" (click)="confirmar()">Confirmar</button>
+<button *ngIf="data && data.hidenButtons" mat-raised-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

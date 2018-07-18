@@ -84,6 +84,13 @@ export class AuthService {
       return info.data.nombre;
     }
   }
+  public getDataID(): any {
+    let info = this.helper.decodeToken(this.token);
+    if (info) {
+      //this.data = info.data as AuthData;
+      return info.data.id;
+    }
+  }
 
   // public sosAdmin(miToken: string) {
   //   let info = this.helper.decodeToken(miToken);
@@ -148,17 +155,17 @@ export class AuthService {
     let miToken: string;
     if (this.token == undefined) {
       if (localStorage.getItem('token') != null) {
-        console.log("local: ", localStorage.getItem('token'));
+        //console.log("local: ", localStorage.getItem('token'));
         miToken = localStorage.getItem('token')
       }else{
         console.log("acceso denegado");
         return false;
       }      
     }else{
-      console.log("token solo: ", this.token);
+      //onsole.log("token solo: ", this.token);
       miToken= this.token;
     }
-    console.log("miToken: ",miToken);
+    //console.log("miToken: ",miToken);
     return miToken != null && !this.helper.isTokenExpired(miToken);
     //return !this.helper.isTokenExpired(miToken);
   }

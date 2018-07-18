@@ -5,8 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class GlobalService {
 
-  //public url: any = "http://127.0.0.1:8080/Laboratorio4/TPFinal/TP_LAB_4_2018/TPLab42018/PHPhumberto/";
-  public url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
+  public url: any = "http://127.0.0.1:8080/Laboratorio4/TPFinal/TP_LAB_4_2018/TPLab42018/PHPhumberto/";
+  //public url: any = "https://santiagolo902-lab4.000webhostapp.com/PHPhumberto/";
   
   constructor(protected http : HttpClient, protected helper : JwtHelperService) { }
 

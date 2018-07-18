@@ -20,9 +20,6 @@
 
   <mat-table #table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
-    <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
@@ -46,30 +43,37 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> estado </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.estado}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="patente">
+
+    <ng-container matColumnDef="patente" >
             <mat-header-cell *matHeaderCellDef mat-sort-header> patente </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.patente}} </mat-cell>
+            <!-- <mat-cell class="resaltarPatente" *matCellDef="let element"> {{element.patente}} </mat-cell> -->
+            <mat-cell *matCellDef="let element">
+              <button mat-button class="resaltarPatente" (click)="editar(element.id)" >{{element.patente}}</button>
+            </mat-cell>
     </ng-container>
 
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="Accion">
-      <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
       <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
                       [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox> -->
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary" *ngIf="row.estado == 'suspendido'" (click)="activarSuspender(row.id,'empleado/activar')">Activar</button>
-        <button mat-raised-button color="warn" *ngIf="row.estado == 'activo'" (click)="activarSuspender(row.id,'empleado/suspender')">Suspender</button>
-        <!-- <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'pendiente' "  class="btn btn-success" (click)="modificarTurno(row.idTurno,'completado')">Completar turno</button>
-          <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'completado' "  class="btn btn-warning" (click)="modificarTurno(row.idTurno,'pendiente')">Turno a pendiente</button> -->
+         <button mat-fab color="warn" *ngIf="row.estado == 'suspendido'" (click)="activarSuspender(row.id,'empleado/activar')">
+          <i class="far fa-square fa-2x"></i>
+        </button>
+        <button mat-fab color="primary" *ngIf="row.estado == 'activo'" (click)="activarSuspender(row.id,'empleado/suspender')">
+          <i class="far fa-check-square fa-2x"></i>
+          </button>
+        <!-- <button mat-raised-button color="primary" (click)="editar(row.id)">Modificar</button> -->
       </mat-cell>
     </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [appSupendidoActivo] = "row.estado"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appSupendidoActivo] = "row.estado" ></mat-row>
   </mat-table>
   <!-- <div style=" text-align: center" class="button-row">
   <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('pdf')" ><i class="far fa-file-pdf fa-2x"></i></button>
@@ -77,7 +81,10 @@
   <a mat-button href="{{php}}" (click)="phpExportar('pdf')" >PHP <i class="far fa-file-pdf fa-2x"></i></a>
   <a mat-button href="{{php}}" (click)="phpExportar('excel')" >PHP <i class="far fa-file-excel fa-2x"></i></a>
 </div> -->
-  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
-  </mat-paginator>
+<mat-paginator #paginator
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 20]"
+[showFirstLastButtons]="true">
+</mat-paginator>
 
 </div>

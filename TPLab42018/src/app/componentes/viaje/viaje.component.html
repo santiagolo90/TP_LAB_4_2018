@@ -77,8 +77,8 @@
         <form class="modal-content animate">
           <div class="container">
             <h2 style="text-align: center;">Origen</h2>
-            <agm-map [latitude]="latDestino" [longitude]="lngDetino" [zoom]="zoom"  (mapDblClick)="seccionarDestino($event)" disableDoubleClickZoom=true >
-                <agm-marker [latitude]="latDestino" [longitude]="lngDetino"></agm-marker>
+            <agm-map [latitude]="latDestino" [longitude]="lngDestino" [zoom]="zoom"  (mapDblClick)="seccionarDestino($event)" disableDoubleClickZoom=true >
+                <agm-marker [latitude]="latDestino" [longitude]="lngDestino"></agm-marker>
               </agm-map>
             <div class="clearfix">
   

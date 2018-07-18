@@ -34,10 +34,8 @@
       <div *ngIf="this.mostrarPatente == true" class="form-group">
           <label for="patente"><b>Patente</b></label>
           <select class="form-control"  [formControl]="formPatente"  name="patente" id="patente">
-            <option value="sin patente">sin patente</option>
-            <option value="encargado">encargado</option>
-            <option value="cliente">cliente</option>
-            <option value="chofer">chofer</option>
+              <option value="sin patente">sin patente</option>
+              <option *ngFor="let vehiculo of arrayVehiculosDesocupados" [(value)]="vehiculo.patente"> {{ vehiculo.patente + ' ' + vehiculo.marca + ' ' + vehiculo.tipo  }}</option>
           </select>
         </div>
       <div class="form-group">

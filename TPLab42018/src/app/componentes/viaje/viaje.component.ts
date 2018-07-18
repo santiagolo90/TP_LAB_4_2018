@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@a
 import { ToastrService } from 'ngx-toastr';
 import { MapaComponent } from '../mapa/mapa.component';
 import {MiCaptchaComponent} from '../mi-captcha/mi-captcha.component'
+import {AuthService } from '../../servicios/auth.service'
+import {ViajesService } from '../../servicios/viajes.service'
 
 
 @Component({
@@ -17,7 +19,7 @@ export class ViajeComponent implements OnInit {
   latOrigen: number = -34.816121;
   lngOrigen: number = -58.470209;
   latDestino: number = -34.816121;
-  lngDetino: number = -58.470209;
+  lngDestino: number = -58.470209;
   cliente:string = "NN";
   //pago:string;
   //tipo:string;
@@ -26,7 +28,9 @@ export class ViajeComponent implements OnInit {
 
 
   constructor(private toastr: ToastrService,
-              private formBuilder : FormBuilder){
+              private formBuilder : FormBuilder,
+              private miAuth:AuthService,
+              private viajesService:ViajesService){
                }
 
   ngOnInit() {
@@ -54,10 +58,11 @@ export class ViajeComponent implements OnInit {
     latOrigen: this.latOrigen,
     lngOrigen: this.lngOrigen,
     latDestino: this.latDestino,
-    lngDetino: this.lngDetino,
+    lngDestino: this.lngDestino,
     tipo: this.tipo,
     pago : this.pago,
-    cliente: this.cliente
+    cliente: this.miAuth.getDataID(),
+    estado: "pendiente"
   });
 
   seccionarOrigen(event) {
@@ -70,7 +75,7 @@ export class ViajeComponent implements OnInit {
   seccionarDestino(event) {
     let coords = event.coords;
     this.latDestino = coords.lat;
-    this.lngDetino = coords.lng;
+    this.lngDestino = coords.lng;
     console.log("Destino: ",event.coords);
   }
   cerrarModa(){
@@ -78,28 +83,37 @@ export class ViajeComponent implements OnInit {
   }
 
   Registrar(){
-    // let viaje = {
-    //   "cliente": this.cliente,
-    //   "pago": this.pago,
-    //   "tipo": this.tipo,
-    //   "latOrigen": this.latOrigen,
-    //   "lngOrigen": this.lngOrigen,
-    //   "latDestino": this.latDestino,
-    //   "lngDetino": this.lngDetino,
-    // }
+     let viaje = {
+       "cliente": this.miAuth.getDataID(),
+       "estado": "pendiente",
+       "pago": this.registroForm.value['pago'],
+       "tipo": this.registroForm.value['tipo'],
+       "latOrigen": this.latOrigen,
+       "lngOrigen": this.lngOrigen,
+       "latDestino": this.latDestino,
+       "lngDestino": this.lngDestino,
+     }
     console.log("calcular: ",this.nuevoJuego.calcular(this.miNumero.value));
     console.log("miNumero: ",this.miNumero.value);
     if (this.nuevoJuego.calcular(this.miNumero.value) == true) {
-      let viaje = this.registroForm.value;
+/*
+       alert("cliente: "+viaje.cliente+"\n Pago: "+ viaje.pago+"\n tipo: "+ viaje.tipo
+       +"\n latOrigen: "+ viaje.latOrigen
+       +"\n lngOrigen: "+ viaje.lngOrigen
+       +"\n latDestino: "+ viaje.latDestino
+       +"\n lngDestino: "+ viaje.lngDestino);
+*/
+       
+      this.viajesService.registarViaje(viaje).then(res => {
+        //this.router.navigate(['/vehiculos']);
+        this.mostarToast(res, "", "info")
+      }).catch(err => {
+        console.log("error capturado: " + err.error);
+        this.mostarToast("Error", err.error, "error")
+      });
 
-      alert("cliente: "+viaje.cliente+"\n Pago: "+ viaje.pago+"\n tipo: "+ viaje.tipo
-      +"\n latOrigen: "+ viaje.latOrigen
-      +"\n lngOrigen: "+ viaje.lngOrigen
-      +"\n latDestino: "+ viaje.latDestino
-      +"\n lngDetino: "+ viaje.lngDetino);
       this.nuevoJuego.randomNumeroOperador();
     }else{
-      //alert("Error en calculo")
       this.mostarToast("Error","Error en captcha","error")
       this.nuevoJuego.randomNumeroOperador();
     }

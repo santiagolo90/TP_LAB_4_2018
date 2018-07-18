@@ -25,6 +25,7 @@ import { VerificarJwtService } from './seguridad/verificar-jwt.service'
 import { LogueadoService } from './seguridad/logueado.service'
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { SpinnerService } from './servicios/spinner.service'
+import { ViajesService } from './servicios/viajes.service'
 
 //primeng
 //import {MenubarModule} from 'primeng/menubar';
@@ -44,6 +45,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { ToastrModule } from 'ngx-toastr';
 import { AdminPipe } from './pipe/admin.pipe';
@@ -53,6 +55,7 @@ import { BoldPipe } from './pipe/bold.pipe';
 import { RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
 //maps
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction'
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { ViajeComponent } from './componentes/viaje/viaje.component';
 import { MiCaptchaComponent } from './componentes/mi-captcha/mi-captcha.component';
@@ -64,6 +67,8 @@ import { RegistroVehiculosComponent } from './componentes/registro-vehiculos/reg
 import { MaskInput } from 'mask-ioni-3/mask-input';
 import {InputMaskModule} from 'primeng/inputmask';
 import { SupendidoActivoDirective } from './directivas/supendido-activo.directive';
+import { ChoferComponent } from './componentes/chofer/chofer.component';
+import { GrillaViajesComponent } from './componentes/grilla-viajes/grilla-viajes.component';
 
 
 
@@ -72,6 +77,7 @@ import { SupendidoActivoDirective } from './directivas/supendido-activo.directiv
     AppComponent,
     LoginComponent,
     ErrorComponent,
+    ChoferComponent,
     PrincipalComponent,
     RegistroComponent,
     HeaderComponent,
@@ -86,7 +92,12 @@ import { SupendidoActivoDirective } from './directivas/supendido-activo.directiv
     GrillaVehiculosComponent,
     RegistroVehiculosComponent,
     MaskInput,
-    SupendidoActivoDirective
+    SupendidoActivoDirective,
+    GrillaViajesComponent
+  ],
+  entryComponents : [
+    ChoferComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -107,8 +118,10 @@ import { SupendidoActivoDirective } from './directivas/supendido-activo.directiv
     MatPaginatorModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
     RuteoModule,
     InputMaskModule,
+    AgmDirectionModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -146,6 +159,7 @@ import { SupendidoActivoDirective } from './directivas/supendido-activo.directiv
     ClientesService,
     ChoferesService,
     VehiculosService,
+    ViajesService,
     VerificarJwtService,
     SpinnerService,
     LogueadoService],

@@ -34,7 +34,6 @@ export class RegistroVehiculosComponent implements OnInit {
 
   formMarca = new FormControl('', [
     Validators.required,
-    Validators.minLength(6)
   ]);
 
   formColor = new FormControl('', [

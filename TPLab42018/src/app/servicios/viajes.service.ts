@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from '../servicios/global.service'
 
 @Injectable()
-export class VehiculosService {
+export class ViajesService {
 
   private token: string;
 
@@ -31,24 +31,16 @@ export class VehiculosService {
     return this.http.get<T>(this.global.url + api);
   }
 
-  public registrarVehiculo(datos:any) : Promise<any> {
-    return this.post<any>('vehiculos/alta', datos).toPromise();
-  }
-  public traerTodosVehiculos() {
-    return this.get<Array<any>>('vehiculos/').toPromise();
-  }
-  public traerTodosVehiculosDisponibles() {
-    return this.get<Array<any>>('vehiculos/disponibles/').toPromise();
+
+  public registarViaje(datos:any) : Promise<any> {
+    return this.post<any>('viaje/alta/', datos).toPromise();
   }
 
-  public activarSuspenderChofer(accion:string, datos:any) : Promise<any> {
-    return this.post<any>(accion, datos).toPromise();
+  public traerTodos() {
+    return this.get<Array<any>>('viaje/').toPromise();
   }
 
-  public cambiarEstado(datos:any) : Promise<any> {
-    return this.post<any>("vehiculos/cambiarEstado/", datos).toPromise();
-  }
+
 
 }
-
 

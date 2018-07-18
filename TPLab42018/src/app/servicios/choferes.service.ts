@@ -38,8 +38,16 @@ export class ChoferesService {
     return this.get<Array<any>>('empleado/choferes/').toPromise();
   }
 
+  public traerUno(datos:any) : Promise<any> {
+    return this.post<any>( 'empleado/traerUno/',datos).toPromise();
+  }
+
   public activarSuspenderChofer(accion:string, datos:any) : Promise<any> {
     return this.post<any>(accion, datos).toPromise();
+  }
+
+  public asignarPatente(datos:any) : Promise<any> {
+    return this.post<any>("empleado/asignarPatente/", datos).toPromise();
   }
 
 }

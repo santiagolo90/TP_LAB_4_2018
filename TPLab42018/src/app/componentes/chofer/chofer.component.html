@@ -1,0 +1,30 @@
+<body>
+  <mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;" ></mat-spinner>
+  <form *ngIf="!mostrarSpinner"  [formGroup]="registroForm" class="animate" (ngSubmit)="Modificar()" >
+    <div class="">
+      <br>
+      <div class="form-group">
+        <label for="nombre"><b>nombre</b></label>
+        <input type="text" disabled  formControlName="nombre" placeholder="Ingrese nombre" class="form-control"  name="nombre" id="nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="usuario"><b>email</b></label>
+        <input type="email" disabled formControlName="email" placeholder="Ingrese email" class="form-control"  name="email" id="email" required>
+      </div>
+      <div class="form-group">
+          <label for="patente"><b>Patente actual: </b></label>
+          <label>{{patenteVieja}}</label>
+          <select class="form-control"  formControlName="patente"  name="patente" id="patente">
+              <option value="sin patente">sin patente</option>
+              <option *ngFor="let vehiculo of arrayVehiculosDesocupados" [(value)]=vehiculo.patente> {{ vehiculo.patente + ' Marca: ' + vehiculo.marca + ' Tipo: ' + vehiculo.tipo  }}</option>
+          </select>
+        </div>
+        <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
+      <div>
+        <button type="submit" class="btn btn-success btn-lg" [disabled]="!registroForm.valid">Modificar</button>
+      </div>
+      <br>
+    </div>
+  </form>
+</body>
+

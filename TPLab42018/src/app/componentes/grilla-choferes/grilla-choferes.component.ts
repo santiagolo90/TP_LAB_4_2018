@@ -11,6 +11,9 @@ import * as jsPDF from 'jspdf'
 //declare var jsPDF: any; // Important
 import 'jspdf-autotable';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ChoferComponent } from '../chofer/chofer.component';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-grilla-choferes',
@@ -19,29 +22,44 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GrillaChoferesComponent implements OnInit {
 
+  private paginator: MatPaginator;
+  private sort: MatSort;
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  //@ViewChild(MatSort) sort: MatSort;
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
   mostrarSpinner: boolean = false;
   public misClientes: Array<any> = [];
   public misClientes2: Array<any> = [];
   miM:any;
   tipo:string = "todos"
   php:string ="nada";
+  matDialogRef : MatDialogRef<any>;
   
 
   constructor(public miHttp: AuthService,
-    public http: Http,
-    private router: Router,
-    private formBuilder : FormBuilder,
-    public global: GlobalService,
-    public choferServ: ChoferesService,
-    private spinner : SpinnerService,
-    private toastr: ToastrService,) {
+              public http: Http,
+              private router: Router,
+              private formBuilder : FormBuilder,
+              public global: GlobalService,
+              public choferServ: ChoferesService,
+              private spinner : SpinnerService,
+              private toastr: ToastrService,
+              private matDialog : MatDialog,) {
   }
+
+
   displayedColumns = ['id', 'nombre', 'email', 'estado','patente', 'Accion'];
   dataSource = new MatTableDataSource(); 
 
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+      this.dataSource.sort = ms;
+    //this.mostrarGrilla();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+      this.dataSource.paginator = mp;
+    //this.mostrarGrilla();
+  }
   ngOnInit() {
     this.mostrarGrilla();
     //this.spinner.showSpinner();
@@ -98,6 +116,21 @@ export class GrillaChoferesComponent implements OnInit {
    return null;
  });
 
+}
+editar(idAux:any){
+  //alert(patenteAux);
+  let dialogRef = this.matDialog.open(ChoferComponent, {
+    height: '400px',
+    width: '600px',
+    data : {
+    id : idAux
+  }});
+  dialogRef.afterClosed().subscribe(res => {
+    if(res) {
+      this.mostrarGrilla();
+      this.mostarToast("se modifico chofer","","success")
+    }
+   });
 }
 
 mostarToast(titulo:string,mensaje:string,tipo:string) {
