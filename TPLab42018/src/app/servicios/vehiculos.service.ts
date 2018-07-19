@@ -49,6 +49,10 @@ export class VehiculosService {
     return this.post<any>("vehiculos/cambiarEstado/", datos).toPromise();
   }
 
+  public traerUno( datos:any) : Promise<any> {
+    return this.post<any>("vehiculos/traerUno/", datos).toPromise();
+  }
+
 }
 
 

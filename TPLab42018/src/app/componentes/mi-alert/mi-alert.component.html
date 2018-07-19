@@ -1,0 +1,13 @@
+<div *ngIf="this.data.tipo == 'finalizar'">
+  <h3>Ingrese valor del viaje</h3>
+  <mat-dialog-content>    
+    <div class="form-group">
+      <label for="precio">Precio:</label>
+      <input type="number" [(ngModel)]="precio" class="form-control" id="precio" min="0">
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions style="float:right;">
+      <button mat-raised-button mat-dialog-close>Cancelar</button>
+      <button mat-raised-button (click)="enviarValor()" color="primary">Confirmar</button>
+  </mat-dialog-actions>
+</div>

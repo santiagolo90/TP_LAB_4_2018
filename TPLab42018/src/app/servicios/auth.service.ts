@@ -91,6 +91,20 @@ export class AuthService {
       return info.data.id;
     }
   }
+  public getDataTipo(): any {
+    let info = this.helper.decodeToken(this.token);
+    if (info) {
+      //this.data = info.data as AuthData;
+      return info.data.tipo;
+    }
+  }
+  public getDataPatente(): any {
+    let info = this.helper.decodeToken(this.token);
+    if (info) {
+      //this.data = info.data as AuthData;
+      return info.data.patente;
+    }
+  }
 
   // public sosAdmin(miToken: string) {
   //   let info = this.helper.decodeToken(miToken);
@@ -114,7 +128,7 @@ export class AuthService {
   public sosEncargado() : boolean {
     let miToken = this.helper.decodeToken(this.token);
      if (miToken.data.tipo === "encargado") {
-       console.log("sos ", miToken.data.tipo);
+       //console.log("sos ", miToken.data.tipo);
        return true;
      }else{
        return false;
@@ -123,7 +137,7 @@ export class AuthService {
   public sosChofer() : boolean {
     let miToken = this.helper.decodeToken(this.token);
      if (miToken.data.tipo === "chofer") {
-       console.log("sos ", miToken.data.tipo);
+       //console.log("sos ", miToken.data.tipo);
        return true;
      }else{
        return false;
@@ -132,7 +146,7 @@ export class AuthService {
   public sosCliente() : boolean {
     let miToken = this.helper.decodeToken(this.token);
      if (miToken.data.tipo === "cliente") {
-       console.log("sos ", miToken.data.tipo);
+       //console.log("sos ", miToken.data.tipo);
        return true;
      }else{
        return false;

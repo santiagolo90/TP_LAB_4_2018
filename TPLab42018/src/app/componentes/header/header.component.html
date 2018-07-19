@@ -28,7 +28,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <!-- //onclick="document.getElementById('id01').style.display='block';" -->
-          <li> <a role="button" ><app-viaje></app-viaje></a> </li>
+          <li> <a *ngIf="this.miHttp.sosCliente()" role="button" ><app-viaje></app-viaje></a> </li>
+          <li><a *ngIf="this.miHttp.sosChofer()" routerLink="/pendientes"role="button">Pendientes</a></li>
           <li><a routerLink="/misViajes"role="button">Mis viajes</a></li>
           <li><a role="button" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
       </ul>

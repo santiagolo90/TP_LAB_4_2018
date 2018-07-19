@@ -16,6 +16,7 @@ import { GrillaClientesComponent } from '../componentes/grilla-clientes/grilla-c
 import { GrillaVehiculosComponent } from '../componentes/grilla-vehiculos/grilla-vehiculos.component'
 import { RegistroVehiculosComponent } from '../componentes/registro-vehiculos/registro-vehiculos.component'
 import { GrillaViajesComponent } from '../componentes/grilla-viajes/grilla-viajes.component'
+import { PendientesComponent } from '../componentes/pendientes/pendientes.component'
 
 //agregue esto
 const MiRuteo = [
@@ -30,6 +31,7 @@ const MiRuteo = [
   {path: 'vehiculos' , component: GrillaVehiculosComponent,canActivate: [LogueadoService]},
   {path: 'rvehiculos' , component: RegistroVehiculosComponent,canActivate: [LogueadoService,VerificarJwtService]},    
   {path: 'misViajes' , component: GrillaViajesComponent,canActivate: [LogueadoService]},    
+  {path: 'pendientes' , component: PendientesComponent,canActivate: [LogueadoService]},
   // { path: 'alumno' , component: AlumnoComponent ,
   // children:
   //      [{path: 'datos' , component: DatosComponent},

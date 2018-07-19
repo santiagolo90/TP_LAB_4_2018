@@ -1,0 +1,86 @@
+<app-header (enviarDato)="Enviar($event)"></app-header>
+
+
+
+
+<mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;" ></mat-spinner>
+<div *ngIf="!mostrarSpinner" class="container example-container mat-elevation-z8">
+  <h1>
+    Pendientes
+  </h1>
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro global">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> fecha </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="hora">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> hora </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.hora}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="tipo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> tipo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.tipo}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="pago">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> pago </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pago}} </mat-cell>
+      </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="cliente">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> cliente </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cliente}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="ruta" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ruta </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-button  (click)="verRuta(element)" >Ver ruta</button>
+          </mat-cell>
+      </ng-container>
+
+                <!-- Symbol Column -->
+    <ng-container matColumnDef="precio">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> precio </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
+      </ng-container>
+
+          <!-- Checkbox Column -->
+    <ng-container matColumnDef="Accion">
+      <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+         <button mat-raised-button color="warn" *ngIf="row.estado == 'en curso'" (click)="finalizarViaje(row.id)">
+          Finalizar
+        </button>
+        <button mat-raised-button color="primary" *ngIf="row.estado == 'pendiente'" (click)="tomarViaje(row.id)">
+        Tomar viaje  
+        </button>
+        <!-- <button mat-raised-button color="primary" (click)="editar(row.id)">Modificar</button> -->
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appSupendidoActivo] = "row.estado" ></mat-row>
+  </mat-table>
+<mat-paginator #paginator
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 20]"
+[showFirstLastButtons]="true">
+</mat-paginator>
+
+</div>

@@ -69,6 +69,8 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { SupendidoActivoDirective } from './directivas/supendido-activo.directive';
 import { ChoferComponent } from './componentes/chofer/chofer.component';
 import { GrillaViajesComponent } from './componentes/grilla-viajes/grilla-viajes.component';
+import { PendientesComponent } from './componentes/pendientes/pendientes.component';
+import { MiAlertComponent } from './componentes/mi-alert/mi-alert.component';
 
 
 
@@ -93,11 +95,14 @@ import { GrillaViajesComponent } from './componentes/grilla-viajes/grilla-viajes
     RegistroVehiculosComponent,
     MaskInput,
     SupendidoActivoDirective,
-    GrillaViajesComponent
+    GrillaViajesComponent,
+    PendientesComponent,
+    MiAlertComponent
   ],
   entryComponents : [
     ChoferComponent,
-    MapaComponent
+    MapaComponent,
+    MiAlertComponent
   ],
   imports: [
     BrowserModule,

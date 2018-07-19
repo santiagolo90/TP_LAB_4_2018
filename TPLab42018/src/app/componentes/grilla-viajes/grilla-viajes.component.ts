@@ -41,7 +41,7 @@ export class GrillaViajesComponent implements OnInit {
     private matDialog : MatDialog) {
 }
 
-displayedColumns = ['id', 'fecha', 'hora', 'tipo','pago', 'estado','cliente','chofer','ruta','precio'];
+displayedColumns = [ 'fecha', 'hora', 'tipo','pago', 'estado','cliente','chofer','ruta','precio'];
 dataSource = new MatTableDataSource(); 
 
 @ViewChild(MatSort) set matSort(ms: MatSort) {
@@ -54,7 +54,17 @@ dataSource = new MatTableDataSource();
 
 
   ngOnInit() {
-    this.mostrarGrilla();
+    
+    if (this.miHttp.getDataTipo() == "encargado" || this.miHttp.getDataTipo() == "admin"  ) {
+      this.mostrarGrilla();
+    }
+    if (this.miHttp.getDataTipo() == "cliente") {
+      this.mostrarGrillaClientes();
+    }
+    if (this.miHttp.getDataTipo() == "chofer") {
+      this.mostrarGrillaChofer();
+    }
+    
   }
 
   mostrarGrilla(){
@@ -63,6 +73,66 @@ dataSource = new MatTableDataSource();
       //this.misMascotas = res;
       console.log( "viajes: ", res);
       
+       this.misViajes =[];
+       if (this.tipo == "todos") {
+         this.misViajes = res;
+         this.dataSource = new MatTableDataSource(res);
+         this.dataSource.sort = this.sort;
+         this.dataSource.paginator = this.paginator;
+       }else{
+         res.forEach(element => {
+           if (element.estado == this.tipo) {
+               this.misViajes.push(element);
+               this.dataSource = new MatTableDataSource(this.misViajes);
+               this.dataSource.sort = this.sort;
+               this.dataSource.paginator = this.paginator;
+           }
+         });
+       }
+       this.mostrarSpinner = false;
+    }).catch(err => {
+      console.log(err);
+      this.mostrarSpinner = false;
+    });
+  }
+
+  mostrarGrillaClientes(){
+    let cliente = {
+      "cliente": this.miHttp.getDataID()
+    }
+    this.mostrarSpinner = true;
+    this.viajesService.traerPorCliente(cliente).then(res => {
+      console.log( "viajes: ", res);
+       this.misViajes =[];
+       if (this.tipo == "todos") {
+         this.misViajes = res;
+         this.dataSource = new MatTableDataSource(res);
+         this.dataSource.sort = this.sort;
+         this.dataSource.paginator = this.paginator;
+       }else{
+         res.forEach(element => {
+           if (element.estado == this.tipo) {
+               this.misViajes.push(element);
+               this.dataSource = new MatTableDataSource(this.misViajes);
+               this.dataSource.sort = this.sort;
+               this.dataSource.paginator = this.paginator;
+           }
+         });
+       }
+       this.mostrarSpinner = false;
+    }).catch(err => {
+      console.log(err);
+      this.mostrarSpinner = false;
+    });
+  }
+
+  mostrarGrillaChofer(){
+    let chofer = {
+      "chofer": this.miHttp.getDataID()
+    }
+    this.mostrarSpinner = true;
+    this.viajesService.traerPorChofer(chofer).then(res => {
+      console.log( "viajes: ", res);
        this.misViajes =[];
        if (this.tipo == "todos") {
          this.misViajes = res;

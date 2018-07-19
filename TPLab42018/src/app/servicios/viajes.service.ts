@@ -40,6 +40,17 @@ export class ViajesService {
     return this.get<Array<any>>('viaje/').toPromise();
   }
 
+  public traerPorCliente(datos:any) : Promise<any> {
+    return this.post<any>('viaje/porCliente/', datos).toPromise();
+  }
+  public traerPorChofer(datos:any) : Promise<any> {
+    return this.post<any>('viaje/porChofer/', datos).toPromise();
+  }
+
+  public tomarViaje(datos:any) : Promise<any> {
+    return this.post<any>('viaje/tomarViaje/', datos).toPromise();
+  }
+
 
 
 }
