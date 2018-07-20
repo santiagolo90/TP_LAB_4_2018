@@ -107,6 +107,7 @@ export class ViajeComponent implements OnInit {
       this.viajesService.registarViaje(viaje).then(res => {
         //this.router.navigate(['/vehiculos']);
         this.mostarToast(res, "", "info")
+        let btnCerrarModal = document.getElementById("id01").style.display='none';
       }).catch(err => {
         console.log("error capturado: " + err.error);
         this.mostarToast("Error", err.error, "error")

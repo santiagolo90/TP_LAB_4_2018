@@ -12,6 +12,7 @@ import 'jspdf-autotable';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ChoferComponent } from '../chofer/chofer.component';
+import { ClientesService } from '../../servicios/clientes.service';
 import { ViajesService } from '../../servicios/viajes.service'
 import { MapaComponent } from '../mapa/mapa.component'
 
@@ -29,6 +30,7 @@ export class GrillaViajesComponent implements OnInit {
   public misViajes: Array<any> = [];
   tipo:string = "todos"
   matDialogRef : MatDialogRef<any>;
+  public misClientes: Array<any> = [];
 
   constructor(public miHttp: AuthService,
     public http: Http,
@@ -38,7 +40,8 @@ export class GrillaViajesComponent implements OnInit {
     private viajesService:ViajesService,
     private spinner : SpinnerService,
     private toastr: ToastrService,
-    private matDialog : MatDialog) {
+    private matDialog : MatDialog,
+    public clienteServ: ClientesService) {
 }
 
 displayedColumns = [ 'fecha', 'hora', 'tipo','pago', 'estado','cliente','chofer','ruta','precio'];
@@ -54,7 +57,8 @@ dataSource = new MatTableDataSource();
 
 
   ngOnInit() {
-    
+    this.misClientes = [];
+    this.traerClientes();
     if (this.miHttp.getDataTipo() == "encargado" || this.miHttp.getDataTipo() == "admin"  ) {
       this.mostrarGrilla();
     }
@@ -69,26 +73,44 @@ dataSource = new MatTableDataSource();
 
   mostrarGrilla(){
     this.mostrarSpinner = true;
+    
+    
+    
     this.viajesService.traerTodos().then(res => {
       //this.misMascotas = res;
       console.log( "viajes: ", res);
-      
-       this.misViajes =[];
+      this.misViajes =[];
        if (this.tipo == "todos") {
-         this.misViajes = res;
-         this.dataSource = new MatTableDataSource(res);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
+         //this.misViajes = res;
+         res.forEach(element => {
+          for (let i = 0; i < this.misClientes.length; i++) {
+           if (element.cliente == this.misClientes[i].id) {
+             element.cliente = this.misClientes[i].nombre;
+           }
+           if (element.chofer == this.misClientes[i].id) {
+            element.chofer = this.misClientes[i].nombre;
+            }
+          }
+             this.misViajes.push(element);
+       });
        }else{
          res.forEach(element => {
-           if (element.estado == this.tipo) {
+           if (element.estado === this.tipo) {
+            for (let i = 0; i < this.misClientes.length; i++) {
+              if (element.cliente == this.misClientes[i].id) {
+                element.cliente = this.misClientes[i].nombre;
+              }
+              if (element.chofer == this.misClientes[i].id) {
+                element.chofer = this.misClientes[i].nombre;
+              }
+             }
                this.misViajes.push(element);
-               this.dataSource = new MatTableDataSource(this.misViajes);
-               this.dataSource.sort = this.sort;
-               this.dataSource.paginator = this.paginator;
            }
          });
        }
+       this.dataSource = new MatTableDataSource(this.misViajes);
+       this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
        this.mostrarSpinner = false;
     }).catch(err => {
       console.log(err);
@@ -104,21 +126,41 @@ dataSource = new MatTableDataSource();
     this.viajesService.traerPorCliente(cliente).then(res => {
       console.log( "viajes: ", res);
        this.misViajes =[];
-       if (this.tipo == "todos") {
-         this.misViajes = res;
-         this.dataSource = new MatTableDataSource(res);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-       }else{
-         res.forEach(element => {
-           if (element.estado == this.tipo) {
-               this.misViajes.push(element);
-               this.dataSource = new MatTableDataSource(this.misViajes);
-               this.dataSource.sort = this.sort;
-               this.dataSource.paginator = this.paginator;
-           }
-         });
-       }
+        if (this.tipo == "todos") {
+          res.forEach(element => {
+          if (element.cliente == this.miHttp.getDataID()) {
+            for (let i = 0; i < this.misClientes.length; i++) {
+              if (element.cliente == this.misClientes[i].id) {
+                element.cliente = this.misClientes[i].nombre;
+              }
+              if (element.chofer == this.misClientes[i].id) {
+               element.chofer = this.misClientes[i].nombre;
+               }
+             }
+              this.misViajes.push(element);
+          }
+        });
+        }
+        if (this.tipo != "todos") {
+          res.forEach(element => {
+            if (element.estado == this.tipo) {
+              if (element.cliente == this.miHttp.getDataID()) {
+                for (let i = 0; i < this.misClientes.length; i++) {
+                  if (element.cliente == this.misClientes[i].id) {
+                    element.cliente = this.misClientes[i].nombre;
+                  }
+                  if (element.chofer == this.misClientes[i].id) {
+                   element.chofer = this.misClientes[i].nombre;
+                   }
+                 }
+                this.misViajes.push(element);
+              }
+            }
+          });
+        }
+        this.dataSource = new MatTableDataSource(this.misViajes);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
        this.mostrarSpinner = false;
     }).catch(err => {
       console.log(err);
@@ -135,20 +177,41 @@ dataSource = new MatTableDataSource();
       console.log( "viajes: ", res);
        this.misViajes =[];
        if (this.tipo == "todos") {
-         this.misViajes = res;
-         this.dataSource = new MatTableDataSource(res);
-         this.dataSource.sort = this.sort;
-         this.dataSource.paginator = this.paginator;
-       }else{
-         res.forEach(element => {
-           if (element.estado == this.tipo) {
-               this.misViajes.push(element);
-               this.dataSource = new MatTableDataSource(this.misViajes);
-               this.dataSource.sort = this.sort;
-               this.dataSource.paginator = this.paginator;
+        res.forEach(element => {
+        if (element.chofer == this.miHttp.getDataID()) {
+          for (let i = 0; i < this.misClientes.length; i++) {
+            if (element.cliente == this.misClientes[i].id) {
+              element.cliente = this.misClientes[i].nombre;
+            }
+            if (element.chofer == this.misClientes[i].id) {
+             element.chofer = this.misClientes[i].nombre;
            }
-         });
-       }
+           }
+            this.misViajes.push(element);
+        }
+      });
+      }
+      if (this.tipo != "todos") {
+        res.forEach(element => {
+          if (element.estado == this.tipo) {
+            if (element.chofer == this.miHttp.getDataID()) {
+              for (let i = 0; i < this.misClientes.length; i++) {
+                if (element.cliente == this.misClientes[i].id) {
+                  element.cliente = this.misClientes[i].nombre;
+                }
+                if (element.chofer == this.misClientes[i].id) {
+                 element.chofer = this.misClientes[i].nombre;
+               }
+               }
+              this.misViajes.push(element);
+
+            }
+          }
+        });
+      }
+      this.dataSource = new MatTableDataSource(this.misViajes);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
        this.mostrarSpinner = false;
     }).catch(err => {
       console.log(err);
@@ -192,6 +255,19 @@ dataSource = new MatTableDataSource();
         }
        });
       
+    }
+
+    traerClientes(){
+      this.clienteServ.traerTodosTodos().then(res => {
+           res.forEach(element => {
+            this.misClientes.push(element);
+           });
+           console.log("mis clientes: ",this.misClientes);
+           
+      }).catch(err => {
+        console.log(err);
+  
+      });
     }
 
 }

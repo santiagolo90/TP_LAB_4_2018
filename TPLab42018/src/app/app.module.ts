@@ -71,6 +71,11 @@ import { ChoferComponent } from './componentes/chofer/chofer.component';
 import { GrillaViajesComponent } from './componentes/grilla-viajes/grilla-viajes.component';
 import { PendientesComponent } from './componentes/pendientes/pendientes.component';
 import { MiAlertComponent } from './componentes/mi-alert/mi-alert.component';
+import { ViajeDirective } from './directivas/viaje.directive';
+import { PrecioPipe } from './pipe/precio.pipe';
+import { ClientePipe } from './pipe/cliente.pipe';
+import { GraficosComponent } from './componentes/graficos/graficos.component';
+
 
 
 
@@ -97,7 +102,11 @@ import { MiAlertComponent } from './componentes/mi-alert/mi-alert.component';
     SupendidoActivoDirective,
     GrillaViajesComponent,
     PendientesComponent,
-    MiAlertComponent
+    MiAlertComponent,
+    ViajeDirective,
+    PrecioPipe,
+    ClientePipe,
+    GraficosComponent
   ],
   entryComponents : [
     ChoferComponent,

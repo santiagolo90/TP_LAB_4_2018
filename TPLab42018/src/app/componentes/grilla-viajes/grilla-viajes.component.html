@@ -7,10 +7,11 @@
   <label for="tipo">
     <b>Estado</b>
   </label>
-  <select class="form-control" [(ngModel)]="tipo" (change)="mostrarGrilla()" name="tipo" id="tipo">
-    <option value=todos>todos</option>
-    <option value=suspendido>suspendido</option>
-    <option value=activo>activo</option>
+  <select class="form-control" [(ngModel)]="tipo" (change)="ngOnInit()" name="tipo" id="tipo">
+    <option value='todos'>todos</option>
+    <option value='pendiente'>pendiente</option>
+    <option value='finalizado'>finalizado</option>
+    <option value="en curso">en curso</option>
   </select>
   <div class="example-header">
     <mat-form-field>
@@ -18,7 +19,7 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+  <mat-table #table [dataSource]="dataSource"  matSort matSortActive="fecha" matSortDirection="desc" matSortDisableClear>
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
@@ -61,7 +62,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="cliente">
         <mat-header-cell *matHeaderCellDef mat-sort-header> cliente </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.cliente}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.cliente  }} </mat-cell>
       </ng-container>
 
           <!-- Symbol Column -->
@@ -80,12 +81,12 @@
                 <!-- Symbol Column -->
     <ng-container matColumnDef="precio">
         <mat-header-cell *matHeaderCellDef mat-sort-header> precio </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.precio | precio}} </mat-cell>
       </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [appSupendidoActivo] = "row.estado" ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appViaje] = "row.estado" > </mat-row>
   </mat-table>
 <mat-paginator #paginator
 [pageSize]="10"

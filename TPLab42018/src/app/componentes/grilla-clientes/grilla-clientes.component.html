@@ -56,10 +56,12 @@
                       [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox> -->
       <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary" *ngIf="row.estado == 'suspendido'" (click)="activarSuspender(row.id,'empleado/activar')">Activar</button>
-        <button mat-raised-button color="warn" *ngIf="row.estado == 'activo'" (click)="activarSuspender(row.id,'empleado/suspender')">Suspender</button>
-        <!-- <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'pendiente' "  class="btn btn-success" (click)="modificarTurno(row.idTurno,'completado')">Completar turno</button>
-          <button *ngIf="this.miHttp.sosAdmin() && row.estado == 'completado' "  class="btn btn-warning" (click)="modificarTurno(row.idTurno,'pendiente')">Turno a pendiente</button> -->
+        <button mat-fab color="warn" *ngIf="row.estado == 'suspendido'" (click)="activarSuspender(row.id,'empleado/activar')">
+          <i class="far fa-square fa-2x"></i>
+        </button>
+        <button mat-fab color="primary" *ngIf="row.estado == 'activo'" (click)="activarSuspender(row.id,'empleado/suspender')">
+          <i class="far fa-check-square fa-2x"></i>
+          </button>
       </mat-cell>
     </ng-container>
 

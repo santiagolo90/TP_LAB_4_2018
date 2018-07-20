@@ -37,6 +37,9 @@ export class ClientesService {
   public traerTodos() {
     return this.get<Array<any>>('empleado/clientes/').toPromise();
   }
+  public traerTodosTodos() {
+    return this.get<Array<any>>('empleado/').toPromise();
+  }
 
   public activarSuspenderCliente(accion:string, datos:any) : Promise<any> {
     return this.post<any>(accion, datos).toPromise();

@@ -160,7 +160,8 @@ export class PendientesComponent implements OnInit {
           let viaje = {
             "id": idAux,
             "chofer": this.miHttp.getDataID(),
-            "estado": "finalizado"
+            "estado": "finalizado",
+            "precio": res
           }
       
           this.mostrarSpinner = true;
@@ -168,7 +169,6 @@ export class PendientesComponent implements OnInit {
             console.log( "tomo viaje: ", res);
             this.mostarToast("Se finalizo correctamente","","success")
              this.mostrarSpinner = false;
-             this.mostrarGrilla();
           }).catch(err => {
             console.log(err);
             this.mostarToast("Error al finalizar viaje","","error")
@@ -178,6 +178,7 @@ export class PendientesComponent implements OnInit {
           this.mostarToast("Error al finalizar viaje","","warning")
         }
        });
+       this.mostrarGrilla();
 
   }
 

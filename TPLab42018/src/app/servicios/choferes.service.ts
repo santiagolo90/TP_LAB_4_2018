@@ -50,5 +50,9 @@ export class ChoferesService {
     return this.post<any>("empleado/asignarPatente/", datos).toPromise();
   }
 
+  public operacionesSector() {
+    return this.get<Array<any>>('viaje/operacionesSector/').toPromise();
+  }
+
 }
 

@@ -9,8 +9,8 @@
   </label>
   <select class="form-control" [(ngModel)]="tipo" (change)="mostrarGrilla()" name="tipo" id="tipo">
     <option value=todos>todos</option>
-    <option value=suspendido>suspendido</option>
-    <option value=activo>activo</option>
+    <option value=ocupado>ocupado</option>
+    <option value=libre>libre</option>
   </select>
   <div class="example-header">
     <mat-form-field>
@@ -76,7 +76,7 @@
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"  ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appSupendidoActivo] = "row.estado"  ></mat-row>
   </mat-table>
   <!-- <div style=" text-align: center" class="button-row">
   <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('pdf')" ><i class="far fa-file-pdf fa-2x"></i></button>

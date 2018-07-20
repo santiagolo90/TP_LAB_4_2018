@@ -20,8 +20,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GrillaVehiculosComponent implements OnInit {
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+  private sort: MatSort;
   mostrarSpinner: boolean = false;
   public misVehiculos: Array<any> = [];
   miM:any;
@@ -41,6 +41,13 @@ export class GrillaVehiculosComponent implements OnInit {
   }
   displayedColumns = ['id', 'patente', 'tipo', 'marca','color','estado', 'Accion'];
   dataSource = new MatTableDataSource(); 
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.dataSource.sort = ms;
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.dataSource.paginator = mp;
+  }
 
   ngOnInit() {
     this.mostrarGrilla();

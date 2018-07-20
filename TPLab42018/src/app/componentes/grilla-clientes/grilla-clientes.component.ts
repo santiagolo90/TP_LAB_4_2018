@@ -19,8 +19,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GrillaClientesComponent implements OnInit {
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+  private sort: MatSort;
   mostrarSpinner: boolean = false;
   public misChoferes: Array<any> = [];
   miM:any;
@@ -39,6 +39,13 @@ export class GrillaClientesComponent implements OnInit {
   }
   displayedColumns = ['id', 'nombre', 'email', 'estado', 'Accion'];
   dataSource = new MatTableDataSource(); 
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.dataSource.sort = ms;
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.dataSource.paginator = mp;
+  }
 
   ngOnInit() {
     this.mostrarGrilla();

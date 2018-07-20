@@ -46,9 +46,10 @@
             <p>
               <img src="./assets/imagenes/mate/cargando.gif">Espere</p>
           </h4>
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
-          <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
-          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || this.miNumero.value == 0" (click)="Registrar()" >Aceptar</button>
+          <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
+          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || this.miNumero.value == 0" (click)="Registrar()" >Aceptar</button> -->
+          <button mat-raised-button onclick="document.getElementById('id01').style.display='none'" color="warn">Cancelar</button>
+          <button style="color: black" mat-raised-button [disabled]="!registroForm.valid || this.miNumero.value == 0"  (click)="Registrar()" >Confirmar</button>
         </div>
         <section id="msjRegistro"></section>
       </div>
@@ -65,8 +66,10 @@
             </agm-map>
           <div class="clearfix">
 
-            <button type="button" onclick="document.getElementById('desde').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button>
+            <!-- <button type="button" onclick="document.getElementById('desde').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button> -->
             <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+            <button mat-button color="primary" style="background-color: whitesmoke" onclick="document.getElementById('desde').style.display='none'" >Confirmar</button>
+
           </div>
         </div>
       </form>
@@ -82,8 +85,9 @@
               </agm-map>
             <div class="clearfix">
   
-              <button type="button" onclick="document.getElementById('hasta').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button>
+              <!-- <button type="button" onclick="document.getElementById('hasta').style.display='none'" class="btn btn-danger btn-lg">Aceptar</button> -->
               <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+              <button mat-button color="primary" style="background-color: whitesmoke" onclick="document.getElementById('hasta').style.display='none'" >Confirmar</button>
             </div>
           </div>
         </form>
