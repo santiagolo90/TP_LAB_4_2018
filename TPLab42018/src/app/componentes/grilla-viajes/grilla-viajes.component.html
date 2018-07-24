@@ -60,15 +60,15 @@
 
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="cliente">
+    <ng-container *ngIf="this.miHttp.getDataTipo() == 'encargado' || this.miHttp.getDataTipo() == 'admin' || this.miHttp.getDataTipo() == 'chofer'" matColumnDef="cliente">
         <mat-header-cell *matHeaderCellDef mat-sort-header> cliente </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.cliente  }} </mat-cell>
       </ng-container>
 
           <!-- Symbol Column -->
-    <ng-container matColumnDef="chofer">
+    <ng-container *ngIf="this.miHttp.getDataTipo() == 'encargado' || this.miHttp.getDataTipo() == 'admin' || this.miHttp.getDataTipo() == 'cliente'" matColumnDef="chofer">
         <mat-header-cell *matHeaderCellDef mat-sort-header> chofer </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.chofer}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.chofer | chofer}} </mat-cell>
       </ng-container>
       
       <ng-container matColumnDef="ruta" >
@@ -83,6 +83,24 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> precio </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.precio | precio}} </mat-cell>
       </ng-container>
+
+
+    <ng-container matColumnDef="Accion">
+      <mat-header-cell *matHeaderCellDef> Accion </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div class="button-row">
+            <button mat-mini-fab color="warn" *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado === 'pendiente'"  (click)="cancelarViaje(row.id)">
+                <i class="far fa-trash-alt fa-lg"></i>
+              </button>
+              <div *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado == 'pendiente'">
+                  <app-viaje-modificar [viaje] = "row" ></app-viaje-modificar>
+              </div>
+              <button mat-mini-fab  *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado === 'finalizado'"  (click)="encuesta(row.id)">
+                  <i class="far fa-check-square fa-lg"></i>
+                </button>
+        </div>
+      </mat-cell>
+    </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

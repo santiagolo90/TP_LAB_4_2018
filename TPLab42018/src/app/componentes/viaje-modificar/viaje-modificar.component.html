@@ -1,0 +1,78 @@
+<a mat-mini-fab color="primary" onclick="document.getElementById('id02').style.display='block';" >
+    <i style="color: white" class="far fa-edit fa-lg"></i>
+</a>
+<div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+    <form class="modal-content animate" >
+      <div class="container">
+        <h2 style="text-align: center;">Modificar Viaje</h2>
+
+          <button  type="button" onclick="document.getElementById('desde2').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block" >Desde</button>
+          <button  type="button" onclick="document.getElementById('hasta2').style.display='block'" style="color: #3F729B;" class="btn  btn-lg btn-block">Hasta</button>
+          <div class="form-group">
+          <h4><b>Tipo de vehiculo</b></h4>
+          <select class="form-control input-lg" name="tipo" >
+              <option value="Normal">Normal</option>
+              <option value="Grande">Grande</option>
+              <option value="Lujoso">Lujoso</option>
+            </select>
+          </div>
+          <div class="form-group">
+          <h4><b>Medio de pago</b></h4>
+          <select class="form-control input-lg" name="pago" >
+              <option value="Efectivo">Efectivo</option>
+              <option value="cuenta">Cuenta Corriente</option>
+            </select>
+          </div>
+
+        <div class="clearfix">
+          <h4 *ngIf="spinerRegistro == true">
+            <p>
+              <img src="./assets/imagenes/mate/cargando.gif">Espere</p>
+          </h4>
+          <!-- <button type="button" onclick="document.getElementById('id02').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
+          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || this.miNumero.value == 0" (click)="Registrar()" >Aceptar</button> -->
+          <button mat-raised-button onclick="document.getElementById('id02').style.display='none'" color="warn">Cancelar</button>
+          <button style="color: black" mat-raised-button   (click)="Registrar()" >Confirmar</button>
+        </div>
+        <section id="msjRegistro"></section>
+      </div>
+    </form>
+  </div>
+
+  <div id="desde2" class="modal">
+      <span onclick="document.getElementById('desde2').style.display='none'" class="close" title="Close Modal">×</span>
+      <form class="modal-content animate">
+        <div class="container">
+          <h2 style="text-align: center;">Origen</h2>
+          <agm-map [latitude]="latOrigen" [longitude]="lngOrigen" [zoom]="zoom"  (mapDblClick)="seccionarOrigen($event)" disableDoubleClickZoom=true >
+              <agm-marker [latitude]="latOrigen" [longitude]="lngOrigen"></agm-marker>
+            </agm-map>
+          <div class="clearfix">
+
+            <!-- <button type="button" onclick="document.getElementById('desde2').style.display='none'" class="btn btn-danger btn-lg">Cerrar</button> -->
+            <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+            <button mat-button color="primary" style="background-color: whitesmoke" onclick="document.getElementById('desde2').style.display='none'" >Confirmar</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="hasta2" class="modal">
+        <span onclick="document.getElementById('hasta2').style.display='none'" class="close" title="Close Modal">×</span>
+        <form class="modal-content animate">
+          <div class="container">
+            <h2 style="text-align: center;">Origen</h2>
+            <agm-map [latitude]="latDestino" [longitude]="lngDestino" [zoom]="zoom"  (mapDblClick)="seccionarDestino($event)" disableDoubleClickZoom=true >
+                <agm-marker [latitude]="latDestino" [longitude]="lngDestino"></agm-marker>
+              </agm-map>
+            <div class="clearfix">
+  
+              <!-- <button type="button" onclick="document.getElementById('hasta2').style.display='none'" class="btn btn-danger btn-lg">Aceptar</button> -->
+              <!-- <button type="button" class="btn btn-info btn-lg" (click)="Registrar()">Aceptar</button> -->
+              <button mat-button color="primary" style="background-color: whitesmoke" onclick="document.getElementById('hasta2').style.display='none'" >Confirmar</button>
+            </div>
+          </div>
+        </form>
+      </div>

@@ -46,6 +46,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { ToastrModule } from 'ngx-toastr';
 import { AdminPipe } from './pipe/admin.pipe';
@@ -75,6 +77,9 @@ import { ViajeDirective } from './directivas/viaje.directive';
 import { PrecioPipe } from './pipe/precio.pipe';
 import { ClientePipe } from './pipe/cliente.pipe';
 import { GraficosComponent } from './componentes/graficos/graficos.component';
+import { ViajeModificarComponent } from './componentes/viaje-modificar/viaje-modificar.component';
+import { ChoferPipe } from './pipe/chofer.pipe';
+import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 
 
 
@@ -106,7 +111,10 @@ import { GraficosComponent } from './componentes/graficos/graficos.component';
     ViajeDirective,
     PrecioPipe,
     ClientePipe,
-    GraficosComponent
+    GraficosComponent,
+    ViajeModificarComponent,
+    ChoferPipe,
+    EncuestaComponent
   ],
   entryComponents : [
     ChoferComponent,
@@ -128,6 +136,8 @@ import { GraficosComponent } from './componentes/graficos/graficos.component';
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatSliderModule,
     MatInputModule,
     MatPaginatorModule,
     MatIconModule,

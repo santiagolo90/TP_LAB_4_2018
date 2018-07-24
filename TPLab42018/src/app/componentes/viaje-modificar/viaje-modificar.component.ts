@@ -7,23 +7,22 @@ import {AuthService } from '../../servicios/auth.service'
 import {ViajesService } from '../../servicios/viajes.service'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-
 @Component({
-  selector: 'app-viaje',
-  templateUrl: './viaje.component.html',
-  styleUrls: ['./viaje.component.css']
+  selector: 'app-viaje-modificar',
+  templateUrl: './viaje-modificar.component.html',
+  styleUrls: ['./viaje-modificar.component.css']
 })
-export class ViajeComponent implements OnInit {
-
-  @Input() id:string; // nuevo
+export class ViajeModificarComponent implements OnInit {
+  @Input() viaje:any; // nuevo
   title: string = 'My first AGM project';
-  latOrigen: number = -34.816121;
-  lngOrigen: number = -58.470209;
-  latDestino: number = -34.816121;
-  lngDestino: number = -58.470209;
+  idViaje: any;
+  latOrigen: number = 0;
+  lngOrigen: number = 0;
+  latDestino: number = 0;
+  lngDestino: number = 0;
   cliente:string = "NN";
-  //pago:string;
-  //tipo:string;
+  pago:string;
+  tipo:string;
   zoom: number = 16;
   nuevoJuego: MiCaptchaComponent
 
@@ -36,36 +35,23 @@ export class ViajeComponent implements OnInit {
                }
 
   ngOnInit() {
-    this.nuevoJuego = new MiCaptchaComponent();
-    this.nuevoJuego.randomNumeroOperador();
+    console.log("id: ", this.viaje);
+    this.idViaje = this.viaje.id;
+    this.latOrigen = Number(this.viaje.latOrigen);
+    this.lngOrigen = Number(this.viaje.lngOrigen);
+    this.latDestino = Number(this.viaje.latDestino);
+    this.lngDestino = Number(this.viaje.lngDestino);
+    this.pago = (this.viaje.pago);
+    this.tipo = (this.viaje.tipo);
+    console.log("idViaje: ",this.idViaje);
+    console.log("latOrigen: ",this.latOrigen);
+    console.log("lngOrigen: ",this.lngOrigen);
+    console.log("latDestino: ",this.latDestino);
+    console.log("lngDestino: ",this.lngDestino);
+    console.log("pago: ",this.pago);
+    console.log("tipo: ",this.tipo);
   }
 
-
-  tipo = new FormControl('', [
-    Validators.required,
-    //Validators.minLength(6)
-  ]);
-
-  pago = new FormControl('', [
-    Validators.required,
-  ]);
-
-  miNumero = new FormControl(0, [
-    Validators.required,
-  ]);
-  
-
-
-  registroForm: FormGroup = this.formBuilder.group({
-    latOrigen: this.latOrigen,
-    lngOrigen: this.lngOrigen,
-    latDestino: this.latDestino,
-    lngDestino: this.lngDestino,
-    tipo: this.tipo,
-    pago : this.pago,
-    cliente: this.miAuth.getDataID(),
-    estado: "pendiente"
-  });
 
   seccionarOrigen(event) {
     let coords = event.coords;
@@ -86,42 +72,32 @@ export class ViajeComponent implements OnInit {
 
   Registrar(){
      let viaje = {
-       "cliente": this.miAuth.getDataID(),
-       "estado": "pendiente",
-       "pago": this.registroForm.value['pago'],
-       "tipo": this.registroForm.value['tipo'],
+       "id": this.idViaje,
+       "pago": this.pago,
+       "tipo": this.tipo,
        "latOrigen": this.latOrigen,
        "lngOrigen": this.lngOrigen,
        "latDestino": this.latDestino,
        "lngDestino": this.lngDestino,
      }
-    console.log("calcular: ",this.nuevoJuego.calcular(this.miNumero.value));
-    console.log("miNumero: ",this.miNumero.value);
-    if (this.nuevoJuego.calcular(this.miNumero.value) == true) {
-/*
-       alert("cliente: "+viaje.cliente+"\n Pago: "+ viaje.pago+"\n tipo: "+ viaje.tipo
+    
+     /*
+       alert("id: "+viaje.id+"\n Pago: "+ viaje.pago+"\n tipo: "+ viaje.tipo
        +"\n latOrigen: "+ viaje.latOrigen
        +"\n lngOrigen: "+ viaje.lngOrigen
        +"\n latDestino: "+ viaje.latDestino
        +"\n lngDestino: "+ viaje.lngDestino);
-*/
+    */
        
-      this.viajesService.registarViaje(viaje).then(res => {
+      this.viajesService.modificarViaje(viaje).then(res => {
         this.router.navigate(['/principal']);
         this.mostarToast(res, "", "info")
-        let btnCerrarModal = document.getElementById("id01").style.display='none';
+        let btnCerrarModal = document.getElementById("id02").style.display='none';
       }).catch(err => {
         console.log("error capturado: " + err.error);
         this.mostarToast("Error", err.error, "error")
       });
 
-      this.nuevoJuego.randomNumeroOperador();
-    }else{
-      this.mostarToast("Error","Error en captcha","error")
-      this.nuevoJuego.randomNumeroOperador();
-    }
-
-    
   }
   mostarToast(titulo:string,mensaje:string,tipo:string) {
     //ToastrService.success/error/warning/info/show()
@@ -142,6 +118,5 @@ export class ViajeComponent implements OnInit {
     }
     
   }
-
 
 }

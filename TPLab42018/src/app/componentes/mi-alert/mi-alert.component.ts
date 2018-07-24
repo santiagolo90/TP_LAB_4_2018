@@ -30,6 +30,11 @@ export class MiAlertComponent implements OnInit {
 
     }
   }
+  confirmar(valor:boolean) {
+    if(valor == true) {
+      this.dialogRef.close(valor);
+    }
+  }
 
   
 

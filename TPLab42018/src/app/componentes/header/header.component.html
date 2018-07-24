@@ -23,7 +23,7 @@
             <li><a routerLink="/clientes" role="button">Clientes</a></li>
             <li><a routerLink="/choferes" role="button">Choferes</a></li>
             <li><a routerLink="/vehiculos" role="button">Vehiculos</a></li>
-            <li><a routerLink="/choferes" role="button">Empleados</a></li>
+            <!-- <li><a routerLink="/choferes" role="button">Empleados</a></li> -->
           </ul>
         </li>
       </ul>
@@ -31,7 +31,8 @@
           <!-- //onclick="document.getElementById('id01').style.display='block';" -->
           <li> <a *ngIf="this.miHttp.sosCliente()" role="button" ><app-viaje></app-viaje></a> </li>
           <li><a *ngIf="this.miHttp.sosChofer()" routerLink="/pendientes"role="button">Pendientes</a></li>
-          <li><a routerLink="/misViajes"role="button">Mis viajes</a></li>
+          <li><a *ngIf="!this.miHttp.sosAdmin()"  routerLink="/misViajes"role="button">Mis viajes</a></li>
+          <li><a *ngIf="this.miHttp.sosAdmin()"  routerLink="/misViajes"role="button">Listado viajes</a></li>
           <li><a role="button" (click)="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
       </ul>
     </div>

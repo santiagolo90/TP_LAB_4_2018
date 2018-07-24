@@ -11,3 +11,11 @@
       <button mat-raised-button (click)="enviarValor()" color="primary">Confirmar</button>
   </mat-dialog-actions>
 </div>
+
+<div *ngIf="this.data.tipo == 'confirmar'">
+  <h3>¿Está seguro?</h3>
+  <mat-dialog-actions style="float:right;">
+      <button mat-raised-button mat-dialog-close>Cancelar</button>
+      <button mat-raised-button (click)="confirmar(true)" color="primary">Confirmar</button>
+  </mat-dialog-actions>
+</div>

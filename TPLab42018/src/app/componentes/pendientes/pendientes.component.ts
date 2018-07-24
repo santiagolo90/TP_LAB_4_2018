@@ -99,7 +99,7 @@ export class PendientesComponent implements OnInit {
     console.log("Elemento: ",elemento.fecha);
 
     let dialogRef = this.matDialog.open(MapaComponent, {
-      height: '400px',
+      height: '448px',
       width: '600px',
       data : {
         hidenButtons : true,
@@ -167,8 +167,10 @@ export class PendientesComponent implements OnInit {
           this.mostrarSpinner = true;
           this.viajesService.tomarViaje(viaje).then(res => {
             console.log( "tomo viaje: ", res);
-            this.mostarToast("Se finalizo correctamente","","success")
+              this.mostarToast("Se finalizo correctamente","","success")
              this.mostrarSpinner = false;
+             //this.mostrarGrilla();
+             this.router.navigate(['/principal']);
           }).catch(err => {
             console.log(err);
             this.mostarToast("Error al finalizar viaje","","error")
@@ -178,7 +180,7 @@ export class PendientesComponent implements OnInit {
           this.mostarToast("Error al finalizar viaje","","warning")
         }
        });
-       this.mostrarGrilla();
+       
 
   }
 

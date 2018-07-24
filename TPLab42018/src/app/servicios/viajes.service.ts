@@ -50,6 +50,12 @@ export class ViajesService {
   public tomarViaje(datos:any) : Promise<any> {
     return this.post<any>('viaje/tomarViaje/', datos).toPromise();
   }
+  public cancelarViaje(datos:any) : Promise<any> {
+    return this.post<any>('viaje/cancelarViaje/', datos).toPromise();
+  }
+  public modificarViaje(datos:any) : Promise<any> {
+    return this.post<any>('viaje/modificarViaje/', datos).toPromise();
+  }
 
 
 
