@@ -19,6 +19,7 @@ import { GrillaViajesComponent } from '../componentes/grilla-viajes/grilla-viaje
 import { PendientesComponent } from '../componentes/pendientes/pendientes.component'
 import { GraficosComponent } from '../componentes/graficos/graficos.component'
 import { EncuestaComponent } from '../componentes/encuesta/encuesta.component'
+import { GrillaEncuestasComponent } from '../componentes/grilla-encuestas/grilla-encuestas.component'
 
 //agregue esto
 const MiRuteo = [
@@ -36,6 +37,7 @@ const MiRuteo = [
   {path: 'pendientes' , component: PendientesComponent,canActivate: [LogueadoService]},
   {path: 'graficos' , component: GraficosComponent,canActivate: [LogueadoService]},
   {path: 'encuesta' , component: EncuestaComponent,canActivate: [LogueadoService]},
+  {path: 'encuestas' , component: GrillaEncuestasComponent,canActivate: [LogueadoService]},
   // { path: 'alumno' , component: AlumnoComponent ,
   // children:
   //      [{path: 'datos' , component: DatosComponent},

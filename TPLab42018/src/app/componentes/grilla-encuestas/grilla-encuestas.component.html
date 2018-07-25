@@ -1,0 +1,103 @@
+<app-header (enviarDato)="Enviar($event)"></app-header>
+<mat-spinner *ngIf="mostrarSpinner" style="margin:auto;margin-top:150px;"></mat-spinner>
+<div *ngIf="!mostrarSpinner" class="container example-container mat-elevation-z8">
+  <h1>
+    Listado de encuestas
+  </h1>
+  <label for="tipo">
+    <b>Estado</b>
+  </label>
+  <select class="form-control" [(ngModel)]="tipo" (change)="ngOnInit()" name="tipo" id="tipo">
+    <option value='todos'>todos</option>
+    <option value='pendiente'>pendiente</option>
+    <option value='finalizada'>finalizada</option>
+  </select>
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro global">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="fecha" matSortDirection="desc" matSortDisableClear>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="viaje">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> viaje </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.idViaje}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.estado_encuesta}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="chofer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> chofer </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.chofer}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="puntos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> puntos </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.puntos_chofer}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="vehiculo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> vehiculo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.estado_vehiculo}} </mat-cell>
+    </ng-container>
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="buenaPersona">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> buenaPersona </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.buena_persona}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="imagen">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> imagen </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.imagen_chofer}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="demoras">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> demoras </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.tiempo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="recomendaria">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> recomendaria </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.recomendaria}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dificultad">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> dificultad </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dificultad}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="comentario">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> comentario </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.comentario}} </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [appEncuesta]="row.estado_encuesta"> </mat-row>
+  </mat-table>
+  <div *ngIf="this.miHttp.getDataTipo() == 'encargado' || this.miHttp.getDataTipo() == 'admin'" style=" text-align: center"
+    class="button-row">
+    <button mat-button (click)="exportar('pdf')">
+      <i class="far fa-file-pdf fa-2x"></i>
+    </button>
+    <!-- <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('excel')" ><i class="far fa-file-excel fa-2x"></i></button> -->
+    <!-- <a mat-button href="{{php}}" (click)="phpExportar('pdf')" >PHP <i class="far fa-file-pdf fa-2x"></i></a>-->
+    <a mat-button href="{{php}}" (click)="exportar('excel')">
+      <i class="far fa-file-excel fa-2x"></i>
+    </a>
+  </div>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+  </mat-paginator>
+
+</div>

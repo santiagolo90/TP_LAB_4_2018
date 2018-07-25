@@ -95,7 +95,7 @@
               <div *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado == 'pendiente'">
                   <app-viaje-modificar [viaje] = "row" ></app-viaje-modificar>
               </div>
-              <button mat-mini-fab  *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado === 'finalizado'"  (click)="encuesta(row.id)">
+              <button mat-mini-fab  *ngIf="this.miHttp.getDataTipo() == 'cliente' && row.estado === 'finalizado'" [disabled]="!this.mostrarEncuesta(row.id)" (click)="encuesta(row.id)">
                   <i class="far fa-check-square fa-lg"></i>
                 </button>
         </div>
@@ -106,6 +106,12 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" [appViaje] = "row.estado" > </mat-row>
   </mat-table>
+  <div *ngIf="this.miHttp.getDataTipo() == 'encargado' || this.miHttp.getDataTipo() == 'admin'" style=" text-align: center" class="button-row">
+      <button mat-button  (click)="exportar('pdf')" ><i class="far fa-file-pdf fa-2x"></i></button>
+      <!-- <button mat-button *ngIf="this.miHttp.sosAdmin()" (click)="exportar('excel')" ><i class="far fa-file-excel fa-2x"></i></button> -->
+      <!-- <a mat-button href="{{php}}" (click)="phpExportar('pdf')" >PHP <i class="far fa-file-pdf fa-2x"></i></a>-->
+      <a mat-button href="{{php}}" (click)="exportar('excel')" ><i class="far fa-file-excel fa-2x"></i></a> 
+  </div>
 <mat-paginator #paginator
 [pageSize]="10"
 [pageSizeOptions]="[5, 10, 20]"

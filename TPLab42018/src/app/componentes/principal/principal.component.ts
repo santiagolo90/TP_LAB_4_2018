@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service'
 import { UsuarioService } from '../../servicios/usuario.service'
+import { EncuestasService } from '../../servicios/encuestas.service'
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -25,11 +26,13 @@ export class PrincipalComponent implements OnInit {
               private toastr: ToastrService,
               public http: Http,
               private router: Router,
+              private encuestasService:EncuestasService,
               public miElementRef:ElementRef) {
   }
 
   ngOnInit() {
     this.usuario = this.miHttp.getDataNombre();
+    
   }
   Enviar(dato:any){
     console.log("Estoy en enviar: ",dato);

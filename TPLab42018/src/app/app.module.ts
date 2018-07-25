@@ -26,6 +26,7 @@ import { LogueadoService } from './seguridad/logueado.service'
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { SpinnerService } from './servicios/spinner.service'
 import { ViajesService } from './servicios/viajes.service'
+import { EncuestasService } from './servicios/encuestas.service'
 
 //primeng
 //import {MenubarModule} from 'primeng/menubar';
@@ -80,6 +81,8 @@ import { GraficosComponent } from './componentes/graficos/graficos.component';
 import { ViajeModificarComponent } from './componentes/viaje-modificar/viaje-modificar.component';
 import { ChoferPipe } from './pipe/chofer.pipe';
 import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
+import { GrillaEncuestasComponent } from './componentes/grilla-encuestas/grilla-encuestas.component';
+import { EncuestaDirective } from './directivas/encuesta.directive';
 
 
 
@@ -114,12 +117,15 @@ import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
     GraficosComponent,
     ViajeModificarComponent,
     ChoferPipe,
-    EncuestaComponent
+    EncuestaComponent,
+    GrillaEncuestasComponent,
+    EncuestaDirective
   ],
   entryComponents : [
     ChoferComponent,
     MapaComponent,
-    MiAlertComponent
+    MiAlertComponent,
+    EncuestaComponent
   ],
   imports: [
     BrowserModule,
@@ -184,6 +190,7 @@ import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
     ChoferesService,
     VehiculosService,
     ViajesService,
+    EncuestasService,
     VerificarJwtService,
     SpinnerService,
     LogueadoService],

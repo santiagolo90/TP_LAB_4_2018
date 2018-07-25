@@ -17,6 +17,9 @@ import { ViajesService } from '../../servicios/viajes.service'
 import { MapaComponent } from '../mapa/mapa.component'
 import { MiAlertComponent } from '../mi-alert/mi-alert.component';
 import { EncuestaComponent } from '../encuesta/encuesta.component';
+import { EncuestasService } from '../../servicios/encuestas.service'
+import { GlobalService } from '../../servicios/global.service'
+
 
 
 @Component({
@@ -33,6 +36,9 @@ export class GrillaViajesComponent implements OnInit {
   tipo:string = "todos"
   matDialogRef : MatDialogRef<any>;
   public misClientes: Array<any> = [];
+  public misEncuestas: Array<any> = [];
+
+  php:string ="nada";
 
   constructor(public miHttp: AuthService,
     public http: Http,
@@ -43,6 +49,8 @@ export class GrillaViajesComponent implements OnInit {
     private spinner : SpinnerService,
     private toastr: ToastrService,
     private matDialog : MatDialog,
+    private global:GlobalService,
+    private encuestasService:EncuestasService,
     public clienteServ: ClientesService) {
 }
 
@@ -66,6 +74,7 @@ dataSource = new MatTableDataSource();
       this.mostrarGrilla();
     }
     if (this.miHttp.getDataTipo() == "cliente") {
+      this.traerEncuestas();
       this.displayedColumns = [ 'fecha', 'hora', 'tipo','pago', 'estado','chofer','ruta','precio','Accion'];
       this.mostrarGrillaClientes();
     }
@@ -309,17 +318,79 @@ dataSource = new MatTableDataSource();
       height: '600px',
       width: '800px',
       data : {
-      tipo : "confirmar"
+      idViaje : idAux
     }});
     dialogRef.afterClosed().subscribe(res => {
-      //alert("precio: "+res)
-
+      if (res== true) {
+        this.mostarToast("Gracias por completar la encuesta","","info")
+        this.router.navigate(['/principal']);
+      }
+      if (res== false) {
+        this.mostarToast("Error al enviar encuesta","","warning")
+      }
      });
   }
 
   modificarViaje(idAux:any){
     // <app-viaje></app-viaje>
   }
+
+  traerEncuestas(){
+    this.encuestasService.traerTodos().then(res => {
+      console.log( "encuestas: ", res);
+      res.forEach(element => {
+        this.misEncuestas.push(element);
+      });
+    }).catch(err => {
+      console.log("encuestas: ",err);
+    });
+  }
+
+  mostrarEncuesta(id:any){
+    for (let i = 0; i < this.misEncuestas.length; i++) {
+      if (id == this.misEncuestas[i].idViaje && this.misEncuestas[i].estado_encuesta == "pendiente" ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  exportar(formato:string){
+    console.log("paginado: ",this.misViajes);
+    if (formato == "excel") {
+      this.php = this.global.url+"excel/viajes/";
+    }
+    if (formato == "pdf") {
+
+      var columns = [
+        {title: "fecha", dataKey: "fecha"}, 
+        {title: "hora", dataKey: "hora"}, 
+        {title: "tipo de viaje", dataKey: "tipo"},
+        {title: "pago", dataKey: "pago"}, 
+        {title: "estado", dataKey: "estado"}, 
+        {title: "cliente", dataKey: "cliente"},
+        {title: "chofer", dataKey: "chofer"}, 
+        {title: "Precio", dataKey: "precio"}, 
+        // {title: "latOrigen", dataKey: "latOrigen"}, 
+        // {title: "lngOrigen", dataKey: "lngOrigen"},
+        // {title: "latDestino", dataKey: "latDestino"}, 
+        // {title: "lngDestino", dataKey: "lngDestino"}, 
+  
+      ];
+      // Only pt supported (not mm or in)
+      var doc = new jsPDF('landscape');
+      for (let i = 0; i < this.misViajes.length; i++) {
+        if (this.misViajes[i].precio == null) {
+          this.misViajes[i].precio =0;
+        }
+      }
+      doc.autoTable(columns, this.misViajes );
+
+      doc.save('table.pdf');
+    }
+  }
+
+
 
   mostarToast(titulo:string,mensaje:string,tipo:string) {
     //ToastrService.success/error/warning/info/show()
