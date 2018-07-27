@@ -18,6 +18,7 @@ export class PrincipalComponent implements OnInit {
   @Input() dato: any[];
   mostrarIF:string;
   usuario:any;
+  base64textString:any;
 
 
 
@@ -43,6 +44,23 @@ export class PrincipalComponent implements OnInit {
    this.mostrarIF = dato;
    console.log("this.mostrarIF: ",this.mostrarIF)
   }
+
+
+  // onUploadChange(evt: any) {
+  //   const file = evt.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  
+  //     reader.onload = this.handleReaderLoaded.bind(this);
+  //     reader.readAsBinaryString(file);
+  //   }
+    
+  // }
+  
+  // handleReaderLoaded(e) {
+  //   this.base64textString = 'data:image/png;base64,' + btoa(e.target.result);
+  //   console.log("file: ",btoa(e.target.result));
+  // }
 
 
 

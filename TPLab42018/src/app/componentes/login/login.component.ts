@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit {
     email: this.formEmail,
     clave: this.formClave,
     tipo: "cliente",
-    estado: "suspendido"
+    estado: "suspendido",
+    patente: "sin patente"
   });
 
 

@@ -83,6 +83,7 @@ import { ChoferPipe } from './pipe/chofer.pipe';
 import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 import { GrillaEncuestasComponent } from './componentes/grilla-encuestas/grilla-encuestas.component';
 import { EncuestaDirective } from './directivas/encuesta.directive';
+import { Decode64Pipe } from './pipe/decode64.pipe';
 
 
 
@@ -119,7 +120,8 @@ import { EncuestaDirective } from './directivas/encuesta.directive';
     ChoferPipe,
     EncuestaComponent,
     GrillaEncuestasComponent,
-    EncuestaDirective
+    EncuestaDirective,
+    Decode64Pipe
   ],
   entryComponents : [
     ChoferComponent,

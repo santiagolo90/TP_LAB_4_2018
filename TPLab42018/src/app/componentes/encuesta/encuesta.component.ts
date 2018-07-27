@@ -22,6 +22,9 @@ export class EncuestaComponent implements OnInit {
   recomendaria:string= "no";
   dificultad:string = "";
   comentario:string = "sin comentario";
+  foto1:any;
+  foto2:any;
+  foto3:any;
 
   constructor(private encuestasService:EncuestasService,
               private toastr: ToastrService,
@@ -98,7 +101,10 @@ export class EncuestaComponent implements OnInit {
       "tiempo" :this.tiempo,
       "recomendaria": this.recomendaria,
       "dificultad": this.dificultad,
-      "comentario": this.comentario
+      "comentario": this.comentario,
+      "foto1": this.foto1,
+      "foto2": this.foto2,
+      "foto3": this.foto3
     }
     console.log("Encuestas: ",JSON.stringify(encuesta));
     
@@ -114,6 +120,65 @@ export class EncuestaComponent implements OnInit {
     
   }
 
+  onUploadChange1(evt: any) {
+    const file = evt.target.files[0];
+    console.log("file", file);
+    if (file.size > 197079 ) {
+      this.mostarToast("Error", "la imagen debe ser menor a 200kb" ,"warning")
+      
+    }else{
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded1.bind(this);
+      reader.readAsBinaryString(file);
+    }
+    
+  }
+  handleReaderLoaded1(e) {
+    this.foto1 = 'data:image/png;base64,' + btoa(e.target.result);
+    //this.foto1 = btoa(e.target.result);
+    //console.log(this.foto1);
+  }
+
+  onUploadChange2(evt: any) {
+    const file = evt.target.files[0];
+    if (file.size > 197079 ) {
+      this.mostarToast("Error", "la imagen debe ser menor a 200kb" ,"warning")
+      
+    }else{
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded2.bind(this);
+      reader.readAsBinaryString(file);
+    }
+    
+  }
+  handleReaderLoaded2(e) {
+    this.foto2 = 'data:image/png;base64,' + btoa(e.target.result);
+
+    //console.log(this.foto2);
+  }
+
+  onUploadChange3(evt: any) {
+    const file = evt.target.files[0];
+    if (file.size > 197079 ) {
+      this.mostarToast("Error", "la imagen debe ser menor a 200kb" ,"warning")
+      
+    }else{
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded3.bind(this);
+      reader.readAsBinaryString(file);
+    }
+    
+  }
+  handleReaderLoaded3(e) {
+    this.foto3 = 'data:image/png;base64,' + btoa(e.target.result);
+    //console.log(this.foto3);
+  }
+  
+
+
   enviarValor() {
     if(this.precio && this.precio > 0) {
       this.dialogRef.close(this.precio);
@@ -126,6 +191,26 @@ export class EncuestaComponent implements OnInit {
     if(valor == true) {
       this.dialogRef.close(valor);
     }
+  }
+
+  mostarToast(titulo:string,mensaje:string,tipo:string) {
+    //ToastrService.success/error/warning/info/show()
+    if (tipo =="success") {
+      this.toastr.success(mensaje,titulo);
+    }
+    if (tipo =="error") {
+      this.toastr.error(mensaje,titulo);
+    }
+    if (tipo =="warning") {
+      this.toastr.warning(mensaje,titulo);
+    }
+    if (tipo =="info") {
+      this.toastr.info(mensaje,titulo);
+    }
+    if (tipo =="show") {
+      this.toastr.show(mensaje,titulo);
+    }
+    
   }
 
 }

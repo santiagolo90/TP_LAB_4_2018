@@ -66,33 +66,34 @@ dataSource = new MatTableDataSource();
   
 
   ngOnInit() {
-    this.displayedColumns = [ 'viaje', 'estado', 'chofer','puntos', 'vehiculo' ,'buenaPersona','imagen','demoras','recomendaria','dificultad','comentario'];
+    this.displayedColumns = [ 'viaje', 'estado', 'chofer','puntos', 'vehiculo' ,'buenaPersona','imagen','demoras','recomendaria','dificultad','comentario','foto1','foto2','foto3'];
     this.mostrarGrilla()
   }
 
   mostrarGrilla(){
+    this.traerClientes();
     this.mostrarSpinner = true; 
     this.encuestasService.traerTodos().then(res => {
       console.log( "encuestas: ", res);
       this.misEncuestas =[];
       if (this.tipo == "todos") {
         res.forEach(element => {
-        //  for (let i = 0; i < this.misClientes.length; i++) {
-        //   if (element.chofer == this.misClientes[i].id) {
-        //    element.chofer = this.misClientes[i].nombre;
-        //    }
-        //  }
+          for (let i = 0; i < this.misClientes.length; i++) {
+           if (element.chofer == this.misClientes[i].id) {
+            element.chofer = this.misClientes[i].nombre;
+            }
+          }
             this.misEncuestas.push(element);
       });
       }
       else{
         res.forEach(element => {
           if (element.estado_encuesta === this.tipo) {
-          //  for (let i = 0; i < this.misClientes.length; i++) {
-          //    if (element.chofer == this.misClientes[i].id) {
-          //      element.chofer = this.misClientes[i].nombre;
-          //    }
-          //   }
+            for (let i = 0; i < this.misClientes.length; i++) {
+              if (element.chofer == this.misClientes[i].id) {
+                element.chofer = this.misClientes[i].nombre;
+              }
+             }
           this.misEncuestas.push(element);
           }
         });
@@ -144,5 +145,18 @@ dataSource = new MatTableDataSource();
       doc.save('table.pdf');
     }
   }
+
+  traerClientes(){
+    this.clienteServ.traerTodosTodos().then(res => {
+         res.forEach(element => {
+          this.misClientes.push(element);
+         });
+         console.log("mis clientes: ",this.misClientes);
+         
+    }).catch(err => {
+      console.log(err);
+
+    });
+}
 
 }

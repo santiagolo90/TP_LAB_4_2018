@@ -44,8 +44,8 @@ const MiRuteo = [
   //       {path: 'grilla' , component: GrillaComponent}
   //     ]
   // },
-  {path: '**' , component: ErrorComponent},
-  {path: 'error' , component: ErrorComponent}];//agregue esto
+  {path: '**' , component: LoginComponent},
+  {path: 'error' , component: LoginComponent}];//agregue esto
 
 @NgModule({
   imports: [

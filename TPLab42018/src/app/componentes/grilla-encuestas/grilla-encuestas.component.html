@@ -18,69 +18,92 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" matSort matSortActive="fecha" matSortDirection="desc" matSortDisableClear>
+  <mat-table #table [dataSource]="dataSource" >
 
     <!-- Position Column -->
     <ng-container matColumnDef="viaje">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> viaje </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > viaje </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.idViaje}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="estado">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > Estado </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.estado_encuesta}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="chofer">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> chofer </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > chofer </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.chofer}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="puntos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> puntos </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > puntos </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.puntos_chofer}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="vehiculo">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> vehiculo </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > vehiculo </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.estado_vehiculo}} </mat-cell>
     </ng-container>
 
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="buenaPersona">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> buenaPersona </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > Persona </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.buena_persona}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="imagen">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> imagen </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > imagen </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.imagen_chofer}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="demoras">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> demoras </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > demoras </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.tiempo}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="recomendaria">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> recomendaria </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > recomendaria </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.recomendaria}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dificultad">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> dificultad </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > dificultad </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.dificultad}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="comentario">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> comentario </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef > comentario </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.comentario}} </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="foto1">
+        <mat-header-cell *matHeaderCellDef > foto1 </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <!-- <img  src={{element.foto1}} alt="" id="img3" width="50" height="50" > -->
+            <img *ngIf="element.estado_encuesta =='finalizada'" height="40" width="40" [src]="element.foto1" >
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="foto2">
+          <mat-header-cell *matHeaderCellDef > foto2 </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+              <!-- <img  src={{element.foto2}} alt="" id="img3" width="50" height="50" > -->
+              <img *ngIf="element.estado_encuesta =='finalizada'" height="40" width="40" src='{{element.foto2}}'>
+          </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="foto3">
+        <mat-header-cell *matHeaderCellDef> foto3 </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img *ngIf="element.estado_encuesta =='finalizada'" height="40" width="40" src={{element.foto3}}>
+        </mat-cell>
+      </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

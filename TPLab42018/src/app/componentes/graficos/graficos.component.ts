@@ -34,6 +34,15 @@ export class GraficosComponent implements AfterViewInit {
   public misChoferes: Array<any> = [];
   public misEncuestas: Array<any> = [];
 
+  estado_vehiculo_bueno:number = 0;
+  estado_vehiculo_malo:number = 0;
+
+  tiempo_si:number = 0;
+  tiempo_no:number = 0;
+
+  dificultad_si:number = 0;
+  dificultad_no:number = 0;
+
   //puntos_chofer:any =0;
   //estado_vehiculo_bueno:any =0;
   //estado_vehiculo_malo:any =0;
@@ -116,44 +125,7 @@ export class GraficosComponent implements AfterViewInit {
     });
   }
   graficoPorChofer() {
-  let estado_vehiculo_bueno:any =0;
-  let estado_vehiculo_malo:any =0;
-
-  let tiempo_si:any=0;
-  let tiempo_no:any=0;
-
-  let dificultad_si:any=0;
-  let dificultad_no:any=0;
-  for (let i = 0; i < this.misEncuestas.length; i++) {
-    if (this.misEncuestas[i].estado_vehiculo == "bueno") {
-      estado_vehiculo_bueno ++
-    }
-    if (this.misEncuestas[i].estado_vehiculo == "malo") {
-      estado_vehiculo_malo ++
-    }
-
-    if (this.misEncuestas[i].tiempo == "si") {
-      tiempo_si ++
-    }
-    if (this.misEncuestas[i].tiempo == "no") {
-      tiempo_no ++
-    }
-
-    if (this.misEncuestas[i].dificultad == "si") {
-      dificultad_si ++
-    }
-    if (this.misEncuestas[i].dificultad == "no") {
-      dificultad_no ++
-    }
-  }
-  console.log("misEncuestas: ",this.misEncuestas);
-  console.log("estado_vehiculo_bueno: ",estado_vehiculo_bueno);
-  console.log("estado_vehiculo_malo: ",estado_vehiculo_malo);
-  console.log("tiempo_si: ",tiempo_si);
-  console.log("tiempo_no: ",tiempo_no);
-  console.log("dificultad_si: ",dificultad_si);
-  console.log("dificultad_no: ",dificultad_no);
-
+    
     this.porChofer = document.getElementById('porChofer');
     this.ctx3 = this.porChofer.getContext('2d');
     let myChart = new Chart(this.ctx3, {
@@ -162,7 +134,7 @@ export class GraficosComponent implements AfterViewInit {
         labels: ["Estado vehiculo bueno","Estado vehiculo malo","Demoras si","Demoras no","Pedido dificil","Pedido facil"],
           datasets: [{
               label: 'Encuestas de clientes',
-              data: [estado_vehiculo_bueno,estado_vehiculo_malo,tiempo_si,tiempo_no,dificultad_si,dificultad_no],
+              data: [this.estado_vehiculo_bueno,this.estado_vehiculo_malo,this.tiempo_si,this.tiempo_no,this.dificultad_si,this.dificultad_no],
               backgroundColor: [
                   'rgba(3, 169, 244, 0.7)',
                   'rgba(244, 67, 54, 0.7)',
@@ -185,39 +157,9 @@ export class GraficosComponent implements AfterViewInit {
       }
     });
   }
-/*
-  estadoPedidoMes() {
-      this.porMes = document.getElementById('porMes');
-      this.ctx4 = this.porMes.getContext('2d');
-      let myChart = new Chart(this.ctx4, {
-          type: 'bar',
-          data: {
-            labels: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Ocutubre","Noviembre","Diciembre"],
-            datasets: [
-              {
-                label: "Africa",
-                backgroundColor: "#3e95cd",
-                data: [133,221,783,2478]
-              }, {
-                label: "Europe",
-                backgroundColor: "#8e5ea2",
-                data: [408,547,675,734]
-              }
-            ]
-          },
-          options: {
-            title: {
-              display: true,
-              text: 'Population growth (millions)'
-            }
-          }
-      });
-    }
-  
-*/
+
   ngOnInit() {
-    //this.traerChoferes();
-    this.traerEncuestas();
+    //this.traerChoferes();   
     this.viajesService.traerTodos().then(res => {
       console.log( "viajes: ", res);
       this.misViajes =[];
@@ -245,7 +187,8 @@ export class GraficosComponent implements AfterViewInit {
        });
        this.ngAfterViewInit();
        this.graficoTipoDePagos();
-       this.graficoPorChofer();
+       this.traerEncuestas(); 
+       
     }).catch(err => {
       console.log(err);
     });
@@ -263,17 +206,42 @@ export class GraficosComponent implements AfterViewInit {
       console.log(err);
     });
   }
+
   traerEncuestas(){
+    this.misEncuestas =[];
     this.encuestasService.traerTodos().then(res => {
-      //console.log( "encuestas: ", res);
-      res.forEach(element => {
-        if (element.estado_encuesta == "finalizada") {
-          this.misEncuestas.push(element);
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].estado_vehiculo == "bueno") {
+          this.estado_vehiculo_bueno = this.estado_vehiculo_bueno + 1;
         }
-      });
+        if (res[i].estado_vehiculo == "malo") {
+          this.estado_vehiculo_malo  = this.estado_vehiculo_malo + 1;
+        }
+        if (res[i].tiempo == "si") {
+          this.tiempo_si = this.tiempo_si + 1;
+        }
+        if (res[i].tiempo == "no") {
+          this.tiempo_no = this.tiempo_no + 1;
+        }
+        if (res[i].dificultad == "si") {
+          this.dificultad_si = this.dificultad_si + 1;
+        }
+        if (res[i].dificultad == "no") {
+          this.dificultad_no = this.dificultad_no + 1;
+        }
+        
+      }      
+      // res.forEach(element => {
+      //   if (element.estado_encuesta == "finalizada") {
+      //     this.misEncuestas.push(element);
+      //   }
+      // });
+      //console.log( "encuestas: ", this.misEncuestas);
+      this.graficoPorChofer();
     }).catch(err => {
       console.log("encuestas: ",err);
     });
+
   }
 
 }

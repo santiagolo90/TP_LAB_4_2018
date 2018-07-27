@@ -33,6 +33,14 @@
               <option value="cuenta">Cuenta Corriente</option>
             </select>
           </div>
+          <div class="form-group">
+              <label for="fecha">Fecha:</label>
+              <input type="date" class="form-control input-lg" [formControl]="fecha" name="fecha"  id="fecha">
+          </div>
+          <div class="form-group">
+              <label for="hora">Hora:</label>
+              <input type="time" class="form-control input-lg" [formControl]="hora" name="hora" id="hora">
+          </div>
           <div class="bordeNumeros">
               <h4><b>Resolver operación</b></h4>
             <img src="{{nuevoJuego.numeroUnoIMG}}">

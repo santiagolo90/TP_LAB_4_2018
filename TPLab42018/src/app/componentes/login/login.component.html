@@ -31,12 +31,12 @@
         </div>
             <div class="form-group">
                 <label for="email"><b>email</b></label>
-              <input type="email" placeholder="Ingresa email" [(ngModel)]="email" class="form-control"  name="email" id="email" required="" autofocus="" />
+              <input type="email" placeholder="Ingresa email" [(ngModel)]="email" class="form-control input-lg"  name="email" id="email" required="" autofocus="" />
               
             </div>
             <div class="form-group">
                 <label for="clave"><b>clave</b></label>
-                <input type="password" placeholder="Ingresa clave" [(ngModel)]="clave" class="form-control"  name="clave" id="clave" required="" />  	
+                <input type="password" placeholder="Ingresa clave" [(ngModel)]="clave" class="form-control input-lg"  name="clave" id="clave" required="" />  	
           </div>
           <p>
             <label for="email"><b>Auto login</b></label>
@@ -76,20 +76,20 @@
         
         <div class="form-group">
               <label for="nombre"><b>nombre</b></label>
-              <input type="text" [formControl]="formNombre" placeholder="Ingrese nombre" class="form-control"  name="nombreRegistro" required>
+              <input type="text" [formControl]="formNombre" placeholder="Ingrese nombre" class="form-control input-lg"  name="nombreRegistro" required>
         </div>
         <div class="form-group">
             <label for="usuario"><b>email</b></label>
-            <input type="email" [formControl]="formEmail" placeholder="Ingrese email" class="form-control"  name="usuarioRegistro" required>
+            <input type="email" [formControl]="formEmail" placeholder="Ingrese email" class="form-control input-lg"  name="usuarioRegistro" required>
         </div>
         <div class="form-group">
             <label for="clave"><b>Clave</b></label>
-            <input type="password" [formControl]="formClave" placeholder="Clave" class="form-control"  name="claveRegistro" required>
+            <input type="password" [formControl]="formClave" placeholder="Clave" class="form-control input-lg"  name="claveRegistro" required>
         </div>
 
         <div class="form-group">
             <label ><b>Repita la clave</b></label>
-            <input type="password" [formControl]="formClave2" placeholder="Repita la clave" class="form-control" name="claveRegistro2" required >
+            <input type="password" [formControl]="formClave2" placeholder="Repita la clave" class="form-control input-lg" name="claveRegistro2" required >
         </div>
         <re-captcha (resolved)="resolvedCaptcha($event)" siteKey="6LdPDF8UAAAAAOWx4CerXHFoHQb_SDUxzZY1J8zJ"></re-captcha>
         <!-- <div class="form-group">
@@ -103,8 +103,11 @@
           </div> -->
         <div class="clearfix">
             <h4 *ngIf="spinerRegistro == true" ><p><img src="./assets/imagenes/mate/cargando.gif" >Espere</p></h4>
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
-          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || !resolved" (click)="Registrar()" >Registrarme</button>
+          <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="btn btn-danger btn-lg">Cancelar</button>
+          <button type="button" class="btn btn-info btn-lg" [disabled]="!registroForm.valid || !resolved" (click)="Registrar()" >Registrarme</button> -->
+
+          <button mat-raised-button onclick="document.getElementById('id01').style.display='none'" color="warn">Cancelar</button>
+          <button style="color: black" mat-raised-button [disabled]="!registroForm.valid || !resolved"  (click)="Registrar()" >Confirmar</button>
         </div>
         <section id="msjRegistro"></section>
       </div>

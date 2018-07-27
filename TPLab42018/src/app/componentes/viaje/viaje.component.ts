@@ -50,6 +50,14 @@ export class ViajeComponent implements OnInit {
     Validators.required,
   ]);
 
+  fecha = new FormControl('', [
+    Validators.required,
+  ]);
+
+  hora = new FormControl('', [
+    Validators.required,
+  ]);
+
   miNumero = new FormControl(0, [
     Validators.required,
   ]);
@@ -63,6 +71,8 @@ export class ViajeComponent implements OnInit {
     lngDestino: this.lngDestino,
     tipo: this.tipo,
     pago : this.pago,
+    fecha: this.fecha,
+    hora: this.hora,
     cliente: this.miAuth.getDataID(),
     estado: "pendiente"
   });
@@ -90,6 +100,8 @@ export class ViajeComponent implements OnInit {
        "estado": "pendiente",
        "pago": this.registroForm.value['pago'],
        "tipo": this.registroForm.value['tipo'],
+       "fecha": this.registroForm.value['fecha'],
+       "hora": this.registroForm.value['hora'],
        "latOrigen": this.latOrigen,
        "lngOrigen": this.lngOrigen,
        "latDestino": this.latDestino,

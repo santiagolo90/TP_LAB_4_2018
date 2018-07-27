@@ -113,7 +113,74 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <div class="col-md-6" style="text-align: center"> 
+                <input
+                style="display: none;" 
+                type="file"
+                (change)="onUploadChange1($event)" 
+                accept=".png, .jpg, .jpeg"
+                id="foto1" 
+                #fileInput1>
+                <button mat-raised-button color="primary" (click)="fileInput1.click()">Primer foto</button>
+              </div>
+              <div class="col-md-6">
+                  <img  src={{foto1}} alt="" id="img1" width="50" height="50" >
+              </div>
+          </div>
 
+          <div class="form-group">
+              <div class="col-md-6 " style="text-align: center"> 
+                  <input
+                  style="display: none;" 
+                  type="file"
+                  (change)="onUploadChange2($event)" 
+                  accept=".png, .jpg, .jpeg"
+                  id="foto2" 
+                  #fileInput2>
+                  <button mat-raised-button color="primary" (click)="fileInput2.click()">Segunda foto</button>
+                </div>
+                <div class="col-md-6">
+                    <img  src={{foto2}} alt="" id="img1" width="50" height="50" >
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-6" style="text-align: center"> 
+                        <input
+                        style="display: none;" 
+                        type="file"
+                        (change)="onUploadChange3($event)" 
+                        accept=".png, .jpg, .jpeg"
+                        id="foto3" 
+                        #fileInput3>
+                        <button mat-raised-button color="primary" (click)="fileInput3.click()">Tercer foto</button>
+                    
+                    </div>
+                    <div class="col-md-6">
+                        <img  src={{foto3}} alt="" id="img1" width="50" height="50" >
+                    </div>
+                  </div>
+
+
+
+        <!-- <div class="form-group">
+            <label class="col-md-4 control-label" for="foto1">Primer foto</label>
+            <input id="foto1" type="file" (change)="onUploadChange1($event)" accept=".png, .jpg, .jpeg" />
+            <img  src={{foto1}} alt="" id="img1" width="50" height="50" >
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label class="col-md-4 control-label" for="foto2">Segunda foto</label>
+            <input id="foto2" type="file" (change)="onUploadChange2($event)" accept=".png, .jpg, .jpeg" />
+            <img  src={{foto2}} alt="" id="img2" width="50" height="50" >
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label class="col-md-4 control-label" for="foto3">Tercer foto</label>
+            <input id="foto3" type="file" (change)="onUploadChange3($event)" accept=".png, .jpg, .jpeg" />
+            <img  src={{foto3}} alt="" id="img3" width="50" height="50" >
+        </div> -->
         
         </fieldset>
         <mat-dialog-actions style="float:right;">
